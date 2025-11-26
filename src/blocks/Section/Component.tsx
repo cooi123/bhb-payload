@@ -102,11 +102,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
       {heading && <h2 className="text-3xl font-medium text-primary">{heading}</h2>}
       {content && <RichText data={content} enableGutter={false} />}
       {hasButton && (
-        <CMSLink
-          {...buttonLink}
-          appearance={buttonLink?.appearance ?? 'default'}
-          size="lg"
-        />
+        <CMSLink {...buttonLink} appearance={buttonLink?.appearance ?? 'default'} size="lg" />
       )}
     </div>
   )
@@ -116,7 +112,10 @@ export const SectionBlock: React.FC<Props> = (props) => {
   const backgroundClasses =
     backgroundColor === 'custom'
       ? 'text-foreground bg-card'
-      : cn('text-foreground', backgroundBackgroundClasses[backgroundColor as 'primary' | 'secondary'])
+      : cn(
+          'text-foreground',
+          backgroundBackgroundClasses[backgroundColor as 'primary' | 'secondary'],
+        )
 
   const backgroundStyle =
     backgroundColor === 'custom' && customBackgroundColor
@@ -129,15 +128,12 @@ export const SectionBlock: React.FC<Props> = (props) => {
         {
           container: enableGutter && !disableInnerContainer,
         },
-        'my-16',
+        'my-16 pb-16',
         heightClasses[sectionHeight],
       )}
     >
       <div
-        className={cn(
-          'border shadow-sm p-8 md:p-12',
-          backgroundClasses,
-        )}
+        className={cn('border shadow-sm p-8 md:p-12', backgroundClasses)}
         style={backgroundStyle}
       >
         <div
@@ -155,4 +151,3 @@ export const SectionBlock: React.FC<Props> = (props) => {
     </div>
   )
 }
-
