@@ -10,6 +10,8 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
   heroImage,
   metaImage,
 }) => {
+  console.log('heroImage', heroImage)
+  console.log('metaImage', metaImage)
   return {
     slug: 'home',
     _status: 'published',

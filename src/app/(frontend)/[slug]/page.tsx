@@ -12,6 +12,8 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { home } from '@/endpoints/seed/home'
+import { Media } from '@/payload-types'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -54,11 +56,12 @@ export default async function Page({ params: paramsPromise }: Args) {
   page = await queryPageBySlug({
     slug: decodedSlug,
   })
+  console.log('page', page)
 
   // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
-    page = homeStatic
-  }
+  // if (slug === 'home') {
+  //   page = homeStatic
+  // }
 
   if (!page) {
     return <PayloadRedirects url={url} />
