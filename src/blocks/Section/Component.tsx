@@ -26,15 +26,20 @@ const backgroundBackgroundClasses: Record<'primary' | 'secondary', string> = {
   secondary: 'bg-secondary text-black',
 }
 
-const mediaBorderClassNames: Record<'primary' | 'secondary', string> = {
-  primary: 'border-primary',
-  secondary: 'border-secondary',
-}
+
 
 const heightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
   small: 'min-h-[20rem]',
   medium: 'min-h-[26rem]',
   large: 'min-h-[34rem]',
+  full: 'h-auto',
+}
+
+const mediaHeightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
+  small: 'h-[25rem]',
+  medium: 'h-[30rem]',
+  large: 'h-[40rem]',
+  full: 'h-auto',
 }
 
 export const SectionBlock: React.FC<Props> = (props) => {
@@ -43,6 +48,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
     customBackgroundColor,
     buttonLink,
     content,
+    contentPosition = 'left',
     disableInnerContainer,
     enableGutter = true,
     heading,
@@ -51,63 +57,81 @@ export const SectionBlock: React.FC<Props> = (props) => {
     sectionHeight = 'medium',
   } = props
 
-  const mediaHeightClass = heightClasses[sectionHeight]
+  const mediaHeightClass = mediaHeightClasses[sectionHeight]
 
   const hasButton =
     buttonLink &&
     ((buttonLink.type === 'custom' && buttonLink.url) ||
       (buttonLink.type === 'reference' && buttonLink.reference))
 
-  const mediaBorderClass =
-    backgroundColor === 'custom'
-      ? 'border-border'
-      : mediaBorderClassNames[backgroundColor as 'primary' | 'secondary']
 
-  const mediaBorderStyle =
-    backgroundColor === 'custom' && customBackgroundColor
-      ? { borderColor: customBackgroundColor }
-      : undefined
 
-  const renderMedia = (variant: 'default' | 'fill' = 'default') =>
-    media ? (
+
+  const renderMedia = (variant: 'default' | 'fill' = 'default') => {
+    const isFullHeight = sectionHeight === 'full'
+    return media ? (
       <div
         className={cn(
-          'relative w-full overflow-hidden rounded-xl border-2',
-          mediaHeightClass,
-          {
-            'h-full': variant === 'fill',
-          },
-          mediaBorderClass,
+          'relative w-full overflow-hidden',
+          variant === 'fill' 
+            ? (isFullHeight ? 'h-auto' : mediaHeightClass)
+            : mediaHeightClass,
         )}
-        style={mediaBorderStyle}
       >
         <Media
-          className={cn('w-full', mediaHeightClass, {
-            'h-full': variant === 'fill',
-          })}
+          className={cn('w-full', isFullHeight ? 'h-auto' : 'h-full')}
           imgClassName={cn(
-            'w-full object-cover transition-transform duration-300',
+            'w-full transition-transform duration-300',
             'hover:scale-[1.02]',
-            {
-              'h-full': variant === 'fill',
-            },
+            isFullHeight ? 'h-auto object-contain' : 'h-full object-cover',
           )}
           resource={media}
         />
       </div>
     ) : null
-
-  const renderContent = () => (
-    <div className="flex flex-col gap-4">
-      {heading && <h2 className="text-3xl font-medium text-primary">{heading}</h2>}
-      {content && <RichText data={content} enableGutter={false} />}
-      {hasButton && (
-        <CMSLink {...buttonLink} appearance={buttonLink?.appearance ?? 'default'} size="lg" />
-      )}
-    </div>
-  )
+  }
 
   const layout = mediaLayouts[mediaLayout]
+
+  const renderContent = () => {
+    const isImageFill = layout === 'imageFill'
+    const textAlignClass = isImageFill 
+      ? (contentPosition === 'left' ? 'text-left' : 'text-right')
+      : (layout === 'imageLeft' ? 'text-right' : 'text-left')
+    const buttonAlignClass = isImageFill
+      ? (contentPosition === 'left' ? 'self-start' : 'self-end')
+      : (layout === 'imageLeft' ? 'self-end' : 'self-start')
+    const contentAlign = isImageFill
+      ? (contentPosition === 'left' ? 'left' : 'right')
+      : (layout === 'imageLeft' ? 'right' : 'left')
+    
+    return (
+      <div className={cn(
+        'flex flex-col h-full justify-between min-w-0', 
+        textAlignClass,
+        {
+          'p-8 md:p-12': isImageFill,
+        }
+      )}>
+        <div className="flex flex-col gap-4 min-w-0">
+          {heading && <h2 className="text-4xl text-primary break-words">{heading}</h2>}
+        </div>
+        <div className="flex flex-col gap-4 min-w-0 w-full">
+          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} />}
+        {hasButton && (
+          <div className="mt-8">
+            <CMSLink 
+              {...buttonLink} 
+              appearance={buttonLink?.appearance ?? 'default'} 
+              size="default" 
+              className={cn('w-fit bg-transparent border border-primary text-primary hover:bg-primary/10', buttonAlignClass)} 
+            />
+          </div>
+        )}
+        </div>
+      </div>
+    )
+  }
 
   const backgroundClasses =
     backgroundColor === 'custom'
@@ -128,25 +152,48 @@ export const SectionBlock: React.FC<Props> = (props) => {
         {
           container: enableGutter && !disableInnerContainer,
         },
-        'my-16 pb-16',
-        heightClasses[sectionHeight],
+        sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight],
       )}
     >
       <div
-        className={cn('border shadow-sm p-8 md:p-12', backgroundClasses)}
+        className={cn(
+          {
+            'p-8 md:p-12': layout !== 'imageFill',
+            'relative': layout === 'imageFill',
+          },
+          backgroundClasses
+        )}
         style={backgroundStyle}
       >
-        <div
-          className={cn('grid gap-10 lg:grid-cols-2', heightClasses[sectionHeight], {
-            'items-center': layout !== 'imageFill',
-            'items-stretch': layout === 'imageFill',
-          })}
-        >
-          {(layout === 'imageLeft' || layout === 'imageFill') &&
-            renderMedia(layout === 'imageFill' ? 'fill' : 'default')}
-          {renderContent()}
-          {layout === 'imageRight' && renderMedia()}
-        </div>
+        {layout === 'imageFill' ? (
+          <div className={cn(
+            'grid grid-cols-2 items-stretch',
+            sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight]
+          )}>
+            {contentPosition === 'left' ? (
+              <>
+                {renderContent()}
+                {renderMedia('fill')}
+              </>
+            ) : (
+              <>
+                {renderMedia('fill')}
+                {renderContent()}
+              </>
+            )}
+          </div>
+        ) : (
+          <div
+            className={cn(
+              'grid lg:grid-cols-2 items-stretch gap-10',
+              sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight]
+            )}
+          >
+            {layout === 'imageLeft' && renderMedia()}
+            {renderContent()}
+            {layout === 'imageRight' && renderMedia()}
+          </div>
+        )}
       </div>
     </div>
   )

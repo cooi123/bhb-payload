@@ -80,6 +80,21 @@ export const SectionBlock: Block = {
       required: true,
     },
     {
+      name: 'contentPosition',
+      type: 'select',
+      label: 'Content Position',
+      defaultValue: 'left',
+      options: [
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' },
+      ],
+      admin: {
+        condition: (_, { mediaLayout }) => mediaLayout === 'imageFill',
+        description: 'Position of content when using full height image layout.',
+      },
+      required: true,
+    },
+    {
       name: 'sectionHeight',
       type: 'select',
       label: 'Section Height',
@@ -88,12 +103,12 @@ export const SectionBlock: Block = {
         { label: 'Small', value: 'small' },
         { label: 'Medium', value: 'medium' },
         { label: 'Large', value: 'large' },
+        { label: 'Full', value: 'full' },
       ],
       admin: {
-        description: 'Controls the minimum height of the media/content container.',
+        description: 'Controls the minimum height of the media/content container. Full uses the natural image height.',
       },
       required: true,
     },
   ],
 }
-

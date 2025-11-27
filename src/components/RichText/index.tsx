@@ -66,19 +66,26 @@ type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
+  align?: 'left' | 'center' | 'right'
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, enableProse = true, enableGutter = true, align = 'left', ...rest } = props
   return (
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
         'payload-richtext prose-headings:text-primary',
+        align === 'left' && 'text-left',
+        align === 'center' && 'text-center',
+        align === 'right' && 'text-right',
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          'prose md:prose-md dark:prose-invert': enableProse,
+          'mx-auto': enableProse && align === 'center',
+          'ml-auto': enableProse && align === 'right',
+          'mr-auto': enableProse && align === 'left',
         },
         className,
       )}

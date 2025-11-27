@@ -826,9 +826,13 @@ export interface SectionBlock {
   media: number | Media;
   mediaLayout: 'imageLeft' | 'imageRight' | 'imageFill';
   /**
-   * Controls the minimum height of the media/content container.
+   * Position of content when using full height image layout.
    */
-  sectionHeight: 'small' | 'medium' | 'large';
+  contentPosition?: ('left' | 'right') | null;
+  /**
+   * Controls the minimum height of the media/content container. Full uses the natural image height.
+   */
+  sectionHeight: 'small' | 'medium' | 'large' | 'full';
   id?: string | null;
   blockName?: string | null;
   blockType: 'section';
@@ -1262,6 +1266,7 @@ export interface SectionBlockSelect<T extends boolean = true> {
   customBackgroundColor?: T;
   media?: T;
   mediaLayout?: T;
+  contentPosition?: T;
   sectionHeight?: T;
   id?: T;
   blockName?: T;
