@@ -489,6 +489,13 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  heading?: string | null;
+  headingAlign?: ('left' | 'center' | 'right') | null;
+  backgroundColor: 'primary' | 'secondary' | 'custom';
+  /**
+   * Provide any valid CSS color value (e.g. #E4E4E7).
+   */
+  customBackgroundColor?: string | null;
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -507,6 +514,9 @@ export interface ContentBlock {
           };
           [k: string]: unknown;
         } | null;
+        textAlign?: ('left' | 'center' | 'right') | null;
+        media?: (number | null) | Media;
+        mediaPosition?: ('above' | 'below') | null;
         enableLink?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
@@ -1190,11 +1200,18 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  heading?: T;
+  headingAlign?: T;
+  backgroundColor?: T;
+  customBackgroundColor?: T;
   columns?:
     | T
     | {
         size?: T;
         richText?: T;
+        textAlign?: T;
+        media?: T;
+        mediaPosition?: T;
         enableLink?: T;
         link?:
           | T
