@@ -61,10 +61,11 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: vercelPostgresAdapter({pool: {
-    connectionString: process.env.DATABASE_URI || '',
-    
-  }, }),
+  db: vercelPostgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URI || '',
+    },
+  }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
@@ -74,15 +75,10 @@ export default buildConfig({
     vercelBlobStorage({
       enabled: true,
       collections: {
-        [Posts.slug]: true,
-        [Pages.slug]: true,
-        [Media.slug]: true,
-        [Categories.slug]: true,
-        [Users.slug]: true,
-
+        media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    })
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
