@@ -73,5 +73,8 @@ html[data-theme='light'] {
 @layer components {
   .btn-outline-primary {
     @apply bg-transparent border border-primary text-primary;
+    &:hover {
+      @apply bg-primary text-primary-foreground;
+    }
   }
 }
