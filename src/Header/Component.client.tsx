@@ -3,11 +3,12 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-
+import { useNavbarScroll } from '@/hooks/useNavarbarScroll'
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { cn } from '@/utilities/ui'
 
 interface HeaderClientProps {
   data: Header
@@ -18,6 +19,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
+  const { show, atTop } = useNavbarScroll()
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -28,9 +30,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
-
   return (
-    <header className="relative z-20 w-full text-foreground">
+    <header className={cn('relative z-20 w-full sticky top-0 text-primary transition-all duration-300 bg-background', {
+      'bg-transparent': atTop,
+      '-translate-y-full opacity-0': !show,
+      'translate-y-0 opacity-100': show,
+    })}>
       <div className="container flex items-center justify-between py-8">
         <Link href="/">
           <Logo loading="eager" priority="high" className="invert dark:invert-0" />
