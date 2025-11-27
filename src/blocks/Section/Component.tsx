@@ -107,17 +107,17 @@ export const SectionBlock: React.FC<Props> = (props) => {
     
     return (
       <div className={cn(
-        'flex flex-col h-full justify-between min-w-0', 
+        'flex flex-col h-full justify-between min-w-0 max-w-full overflow-x-hidden', 
         textAlignClass,
         {
           'p-8 md:p-12': isImageFill,
         }
       )}>
-        <div className="flex flex-col gap-4 min-w-0">
+        <div className="flex flex-col gap-4 min-w-0 max-w-full overflow-x-hidden">
           {heading && <h2 className="text-4xl text-primary break-words">{heading}</h2>}
         </div>
-        <div className="flex flex-col gap-4 min-w-0 w-full">
-          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} />}
+        <div className="flex flex-col gap-4 min-w-0 w-full max-w-full overflow-x-hidden">
+          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} className="text-primary break-words overflow-wrap-anywhere w-full" />}
         {hasButton && (
           <div className="mt-8">
             <CMSLink 
@@ -167,18 +167,18 @@ export const SectionBlock: React.FC<Props> = (props) => {
       >
         {layout === 'imageFill' ? (
           <div className={cn(
-            'grid grid-cols-2 items-stretch',
+            'grid grid-cols-1 md:grid-cols-2 items-stretch',
             sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight]
           )}>
             {contentPosition === 'left' ? (
               <>
-                {renderContent()}
-                {renderMedia('fill')}
+                <div className="min-w-0 order-2 md:order-1">{renderContent()}</div>
+                <div className="order-1 md:order-2">{renderMedia('fill')}</div>
               </>
             ) : (
               <>
-                {renderMedia('fill')}
-                {renderContent()}
+                <div className="order-1 md:order-1">{renderMedia('fill')}</div>
+                <div className="min-w-0 order-2 md:order-2">{renderContent()}</div>
               </>
             )}
           </div>
@@ -190,7 +190,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
             )}
           >
             {layout === 'imageLeft' && renderMedia()}
-            {renderContent()}
+            <div className="min-w-0">{renderContent()}</div>
             {layout === 'imageRight' && renderMedia()}
           </div>
         )}
