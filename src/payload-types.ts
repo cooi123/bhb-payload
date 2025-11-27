@@ -199,7 +199,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SectionBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SectionBlock | ContactUsBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -849,6 +849,32 @@ export interface SectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactUsBlock".
+ */
+export interface ContactUsBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  formHeading?: string | null;
+  contactInfoHeading?: string | null;
+  form: number | Form;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  /**
+   * Paste the Google Maps embed URL here. You can get this by going to Google Maps, clicking Share > Embed a map, and copying the src URL from the iframe code.
+   */
+  mapEmbedUrl?: string | null;
+  backgroundColor: 'primary' | 'secondary' | 'custom';
+  /**
+   * Provide any valid CSS color value (e.g. #E4E4E7).
+   */
+  customBackgroundColor?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactUs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1156,6 +1182,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         section?: T | SectionBlockSelect<T>;
+        contactUs?: T | ContactUsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1285,6 +1312,25 @@ export interface SectionBlockSelect<T extends boolean = true> {
   mediaLayout?: T;
   contentPosition?: T;
   sectionHeight?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactUsBlock_select".
+ */
+export interface ContactUsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  formHeading?: T;
+  contactInfoHeading?: T;
+  form?: T;
+  phoneNumber?: T;
+  email?: T;
+  address?: T;
+  mapEmbedUrl?: T;
+  backgroundColor?: T;
+  customBackgroundColor?: T;
   id?: T;
   blockName?: T;
 }
