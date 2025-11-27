@@ -72,10 +72,6 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     enableGutter = true,
   } = props
 
-  if (!slides || slides.length === 0) {
-    return null
-  }
-
   const aspectClass = aspectRatioClasses[slideAspectRatio] ?? aspectRatioClasses['16:9']
   const slideWidthClass = slideWidthClasses[slideSize] ?? slideWidthClasses.medium
   const autoplayPlugin = useRef<ReturnType<typeof Autoplay> | null>(
@@ -109,7 +105,9 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     }
   }, [api])
 
-
+  if (!slides || slides.length === 0) {
+    return null
+  }
   return (
     <section
       className={cn(
