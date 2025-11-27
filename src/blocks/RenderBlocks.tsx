@@ -8,6 +8,7 @@ import { ContactUsBlock } from '@/blocks/ContactUs/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { MediaCarouselBlock } from '@/blocks/MediaCarousel/Component'
 import { SectionBlock } from '@/blocks/Section/Component'
 
 const blockComponents = {
@@ -17,6 +18,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  mediaCarousel: MediaCarouselBlock,
   section: SectionBlock,
 }
 

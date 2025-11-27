@@ -69,3 +69,9 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+@layer components {
+  .btn-outline-primary {
+    @apply bg-transparent border border-primary text-primary;
+  }
+}

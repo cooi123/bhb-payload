@@ -8,6 +8,7 @@ import { ContactUs } from '../../blocks/ContactUs/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { MediaCarouselBlock } from '@/blocks/MediaCarousel/config'
 import { SectionBlock } from '@/blocks/Section/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -74,7 +75,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, SectionBlock, ContactUs],
+              blocks: [CallToAction, Content, MediaBlock, MediaCarouselBlock, Archive, FormBlock, SectionBlock, ContactUs],
               required: true,
               admin: {
                 initCollapsed: true,

@@ -199,7 +199,16 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SectionBlock | ContactUsBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | MediaCarouselBlock
+    | ArchiveBlock
+    | FormBlock
+    | SectionBlock
+    | ContactUsBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -553,6 +562,66 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaCarouselBlock".
+ */
+export interface MediaCarouselBlock {
+  heading?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  slideAspectRatio: '16:9' | '4:3' | '1:1';
+  slideSize?: ('small' | 'medium' | 'large') | null;
+  loopSlides?: boolean | null;
+  /**
+   * Optional: display a button beneath the carousel.
+   */
+  buttonLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  slides: {
+    media: number | Media;
+    caption?: string | null;
+    description?: string | null;
+    /**
+     * Optional: when provided the slide opens this link instead of the media preview.
+     */
+    linkUrl?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaCarousel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1179,6 +1248,7 @@ export interface PagesSelect<T extends boolean = true> {
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        mediaCarousel?: T | MediaCarouselBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         section?: T | SectionBlockSelect<T>;
@@ -1261,6 +1331,38 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaCarouselBlock_select".
+ */
+export interface MediaCarouselBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  slideAspectRatio?: T;
+  slideSize?: T;
+  loopSlides?: T;
+  buttonLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  slides?:
+    | T
+    | {
+        media?: T;
+        caption?: T;
+        description?: T;
+        linkUrl?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
