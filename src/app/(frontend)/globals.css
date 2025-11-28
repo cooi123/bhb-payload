@@ -11,6 +11,13 @@
   h6 {
     font-size: unset;
     font-weight: unset;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  button,
+  [role="button"],
+  a[role="button"] {
+    font-family: var(--font-playfair);
   }
 
   :root,
@@ -58,6 +65,8 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    font-family: var(--font-montserrat);
+    font-weight: 350;
   }
 }
 
@@ -73,5 +82,46 @@ html[data-theme='light'] {
 @layer components {
   .btn-outline-primary {
     @apply bg-transparent border border-primary text-primary;
+  }
+}
+
+@layer utilities {
+  .heading-1 {
+    @apply text-primary font-bold text-4xl mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .heading-2 {
+    @apply text-primary font-bold text-3xl mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .heading-3 {
+    @apply text-primary font-bold text-2xl mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .heading-4 {
+    @apply text-primary font-bold text-xl mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .heading-5 {
+    @apply text-primary font-bold text-lg mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .heading-6 {
+    @apply text-primary font-bold text-base mb-4;
+    font-family: var(--font-playfair), serif;
+  }
+  
+  /* Keep .heading as alias for heading-1 for backward compatibility */
+  .heading {
+    @apply heading-1;
+  }
+  
+  .font-montserrat {
+    font-family: var(--font-montserrat), sans-serif;
   }
 }

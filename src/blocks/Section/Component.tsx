@@ -113,11 +113,11 @@ export const SectionBlock: React.FC<Props> = (props) => {
           'p-8 md:p-12': isImageFill,
         }
       )}>
-        <div className="flex flex-col gap-4 min-w-0 max-w-full overflow-x-hidden">
-          {heading && <h2 className="text-4xl text-primary break-words">{heading}</h2>}
+        <div className="flex flex-col gap-4 min-w-0 max-w-full">
+          {heading && <h2 className="text-primary break-words heading">{heading}</h2>}
         </div>
         <div className="flex flex-col gap-4 min-w-0 w-full max-w-full overflow-x-hidden">
-          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} className="text-primary break-words overflow-wrap-anywhere w-full" />}
+          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} className="break-words overflow-wrap-anywhere w-full" />}
         {hasButton && (
           <div className="mt-8">
             <CMSLink 

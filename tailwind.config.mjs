@@ -96,6 +96,8 @@ const config = {
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
+        montserrat: ['var(--font-montserrat)', 'sans-serif'],
+        playfair: ['var(--font-playfair)', 'serif'],
       },
       keyframes: {
         'accordion-down': {
