@@ -26,8 +26,6 @@ const backgroundBackgroundClasses: Record<'primary' | 'secondary', string> = {
   secondary: 'bg-secondary text-black',
 }
 
-
-
 const heightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
   small: 'min-h-[20rem]',
   medium: 'min-h-[26rem]',
@@ -64,18 +62,13 @@ export const SectionBlock: React.FC<Props> = (props) => {
     ((buttonLink.type === 'custom' && buttonLink.url) ||
       (buttonLink.type === 'reference' && buttonLink.reference))
 
-
-
-
   const renderMedia = (variant: 'default' | 'fill' = 'default') => {
     const isFullHeight = sectionHeight === 'full'
     return media ? (
       <div
         className={cn(
           'relative w-full overflow-hidden',
-          variant === 'fill' 
-            ? (isFullHeight ? 'h-auto' : mediaHeightClass)
-            : mediaHeightClass,
+          variant === 'fill' ? (isFullHeight ? 'h-auto' : mediaHeightClass) : mediaHeightClass,
         )}
       >
         <Media
@@ -93,45 +86,15 @@ export const SectionBlock: React.FC<Props> = (props) => {
 
   const layout = mediaLayouts[mediaLayout]
 
-  const renderContent = () => {
-    const isImageFill = layout === 'imageFill'
-    const textAlignClass = isImageFill 
-      ? (contentPosition === 'left' ? 'text-left' : 'text-right')
-      : (layout === 'imageLeft' ? 'text-right' : 'text-left')
-    const buttonAlignClass = isImageFill
-      ? (contentPosition === 'left' ? 'self-start' : 'self-end')
-      : (layout === 'imageLeft' ? 'self-end' : 'self-start')
-    const contentAlign = isImageFill
-      ? (contentPosition === 'left' ? 'left' : 'right')
-      : (layout === 'imageLeft' ? 'right' : 'left')
-    
-    return (
-      <div className={cn(
-        'flex flex-col h-full justify-between min-w-0 max-w-full overflow-x-hidden', 
-        textAlignClass,
-        {
-          'p-8 md:p-12': isImageFill,
-        }
-      )}>
-        <div className="flex flex-col gap-4 min-w-0 max-w-full overflow-x-hidden">
-          {heading && <h2 className="text-4xl text-primary break-words">{heading}</h2>}
-        </div>
-        <div className="flex flex-col gap-4 min-w-0 w-full max-w-full overflow-x-hidden">
-          {content && <RichText data={content} enableGutter={false} align={contentAlign as 'left' | 'right'} className="text-primary break-words overflow-wrap-anywhere w-full" />}
-        {hasButton && (
-          <div className="mt-8">
-            <CMSLink 
-              {...buttonLink} 
-              appearance={buttonLink?.appearance ?? 'default'} 
-              size="default" 
-              className={cn('w-fit bg-transparent border border-primary text-primary hover:bg-primary/10', buttonAlignClass)} 
-            />
-          </div>
-        )}
-        </div>
-      </div>
-    )
-  }
+  const renderContent = () => (
+    <div className="flex flex-col gap-4">
+      {heading && <h2 className="text-3xl font-medium text-primary">{heading}</h2>}
+      {content && <RichText data={content} enableGutter={false} />}
+      {hasButton && (
+        <CMSLink {...buttonLink} appearance={buttonLink?.appearance ?? 'default'} size="lg" />
+      )}
+    </div>
+  )
 
   const backgroundClasses =
     backgroundColor === 'custom'
@@ -159,17 +122,19 @@ export const SectionBlock: React.FC<Props> = (props) => {
         className={cn(
           {
             'p-8 md:p-12': layout !== 'imageFill',
-            'relative': layout === 'imageFill',
+            relative: layout === 'imageFill',
           },
-          backgroundClasses
+          backgroundClasses,
         )}
         style={backgroundStyle}
       >
         {layout === 'imageFill' ? (
-          <div className={cn(
-            'grid grid-cols-1 md:grid-cols-2 items-stretch',
-            sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight]
-          )}>
+          <div
+            className={cn(
+              'grid grid-cols-1 md:grid-cols-2 items-stretch',
+              sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight],
+            )}
+          >
             {contentPosition === 'left' ? (
               <>
                 <div className="min-w-0 order-2 md:order-1">{renderContent()}</div>
@@ -186,7 +151,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
           <div
             className={cn(
               'grid lg:grid-cols-2 items-stretch gap-10',
-              sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight]
+              sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight],
             )}
           >
             {layout === 'imageLeft' && renderMedia()}
