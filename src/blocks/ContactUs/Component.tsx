@@ -34,8 +34,8 @@ type Props = {
 } & ContactUsBlockProps
 
 const backgroundBackgroundClasses: Record<'primary' | 'secondary', string> = {
-  primary: 'bg-background text-black',
-  secondary: 'bg-secondary text-black',
+  primary: 'bg-[#D3D3D3] text-black',
+  secondary: 'bg-[#E6E6E6] text-black',
 }
 
 export const ContactUsBlock: React.FC<Props> = ({

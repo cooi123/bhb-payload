@@ -31,7 +31,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
   return (
-    <header className={cn('relative z-20 w-full sticky top-0 text-primary transition-all duration-300 bg-background', {
+    <header className={cn('relative z-20 w-full sticky top-0 text-primary transition-all duration-300 bg-layout', {
       'bg-transparent': atTop,
       '-translate-y-full opacity-0': !show,
       'translate-y-0 opacity-100': show,

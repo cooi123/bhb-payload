@@ -23,8 +23,10 @@
   :root,
   [data-theme='dark'],
   [data-theme='light'] {
-    --background: 0 0% 70%; /* #B2B2B2 */
-    --foreground: 0 0% 0%; /* #000000 */
+    --background: 0 0% 100%; /* white */
+    --foreground: 0 0% 0%; /* black */
+    --layout-surface: 0 0% 70%; /* #b2b2b2 for header/footer */
+
 
     --card: 0 0% 92%; /* #EAEAEA */
     --card-foreground: 3 55% 30%; /* #782322 */
@@ -35,7 +37,7 @@
     --primary: 3 55% 30%;
     --primary-foreground: 0 0% 92%;
 
-    --secondary: 0 0% 92%;
+    --secondary: 0 0% 70%;
     --secondary-foreground: 3 55% 30%;
 
     --muted: 0 0% 92%;
@@ -89,6 +91,9 @@ html[data-theme='light'] {
   .heading-1 {
     @apply text-primary font-bold text-4xl mb-4;
     font-family: var(--font-playfair), serif;
+  }
+  .bg-layout {
+    background-color: hsl(var(--layout-surface));
   }
   
   .heading-2 {

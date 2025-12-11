@@ -145,7 +145,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       {
         blockName: 'Content Block',
         blockType: 'content',
-        backgroundColor:"primary",
+      backgroundColor: 'primary',
         columns: [
           {
             richText: {
