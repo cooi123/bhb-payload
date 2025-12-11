@@ -49,21 +49,21 @@ export const MediaBlock: React.FC<Props> = (props) => {
     return `${w} / ${h}`
   }, [galleryAspectRatio])
 
+  const spanSequence = React.useMemo(
+    () =>
+      [
+        ['lg:col-span-3', 'lg:col-span-3'], // 2-up
+        ['lg:col-span-2', 'lg:col-span-4'], // 2-up alt
+        ['lg:col-span-4', 'lg:col-span-2'], // 2-up flipped
+        ['lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2'], // 3-up even
+        ['lg:col-span-1', 'lg:col-span-2', 'lg:col-span-3'], // mixed widths
+      ].flat(),
+    [],
+  )
+
+  const getSpanClass = (index: number) => spanSequence[index % spanSequence.length]
+
   if (layout === 'flex' && Array.isArray(gallery) && gallery.length) {
-    const spanSequence = React.useMemo(
-      () =>
-        [
-          ['lg:col-span-3', 'lg:col-span-3'], // 2-up
-          ['lg:col-span-2', 'lg:col-span-4'], // 2-up alt
-          ['lg:col-span-4', 'lg:col-span-2'], // 2-up flipped
-          ['lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2'], // 3-up even
-          ['lg:col-span-1', 'lg:col-span-2', 'lg:col-span-3'], // mixed widths
-        ].flat(),
-      [],
-    )
-
-    const getSpanClass = (index: number) => spanSequence[index % spanSequence.length]
-
     return (
       <div
         className={cn(
@@ -79,9 +79,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
 
             return (
               <div key={index} className={cn('flex flex-col gap-2', getSpanClass(index))}>
-                <div
-                  className="relative h-[220px] overflow-hidden border border-border sm:h-[240px] lg:h-[280px]"
-                >
+                <div className="relative h-[220px] overflow-hidden border border-border sm:h-[240px] lg:h-[280px]">
                   <Media
                     resource={item.media}
                     fill
@@ -90,7 +88,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
                     size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
-                {item.caption ? <p className="text-sm text-muted-foreground">{item.caption}</p> : null}
+                {item.caption ? (
+                  <p className="text-sm text-muted-foreground">{item.caption}</p>
+                ) : null}
               </div>
             )
           })}
@@ -134,7 +134,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
                     size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
-                {item.caption ? <p className="text-sm text-muted-foreground">{item.caption}</p> : null}
+                {item.caption ? (
+                  <p className="text-sm text-muted-foreground">{item.caption}</p>
+                ) : null}
               </div>
             )
           })}
