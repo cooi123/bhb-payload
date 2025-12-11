@@ -171,5 +171,98 @@ export const Content: Block = {
       },
       fields: columnFields,
     },
+    {
+      name: 'propertyTable',
+      label: 'Property Table',
+      type: 'group',
+      fields: [
+        {
+          name: 'enabled',
+          label: 'Show property table',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
+          name: 'area',
+          label: 'Area',
+          type: 'text',
+          admin: {
+            description: 'Displayed as m² unless value already includes units.',
+            condition: (_data, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+        {
+          name: 'completionYear',
+          label: 'Project completion year',
+          type: 'text',
+          admin: {
+            condition: (_data, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+        {
+          name: 'architect',
+          label: 'Architect',
+          type: 'text',
+          admin: {
+            condition: (_data, siblingData) => Boolean(siblingData?.enabled),
+          },
+        },
+        {
+          name: 'specs',
+          label: 'Specs',
+          type: 'group',
+          admin: {
+            condition: (_data, siblingData) => Boolean(siblingData?.enabled),
+          },
+          fields: [
+            {
+              name: 'beds',
+              label: 'Beds',
+              type: 'number',
+              min: 0,
+            },
+            {
+              name: 'baths',
+              label: 'Baths',
+              type: 'number',
+              min: 0,
+            },
+            {
+              name: 'cars',
+              label: 'Car spaces',
+              type: 'number',
+              min: 0,
+            },
+          ],
+        },
+        {
+          name: 'rows',
+          label: 'Custom rows',
+          labels: {
+            singular: 'Row',
+            plural: 'Rows',
+          },
+          type: 'array',
+          admin: {
+            condition: (_data, siblingData) => Boolean(siblingData?.enabled),
+            description: 'When rows are provided, they are rendered as-is.',
+          },
+          fields: [
+            {
+              name: 'label',
+              label: 'Label',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'value',
+              label: 'Value',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

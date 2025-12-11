@@ -549,6 +549,30 @@ export interface ContentBlock {
         id?: string | null;
       }[]
     | null;
+  propertyTable?: {
+    enabled?: boolean | null;
+    /**
+     * Displayed as m² unless value already includes units.
+     */
+    area?: string | null;
+    completionYear?: string | null;
+    architect?: string | null;
+    specs?: {
+      beds?: number | null;
+      baths?: number | null;
+      cars?: number | null;
+    };
+    /**
+     * When rows are provided, they are rendered as-is.
+     */
+    rows?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'content';
@@ -1337,6 +1361,28 @@ export interface ContentBlockSelect<T extends boolean = true> {
               appearance?: T;
             };
         id?: T;
+      };
+  propertyTable?:
+    | T
+    | {
+        enabled?: T;
+        area?: T;
+        completionYear?: T;
+        architect?: T;
+        specs?:
+          | T
+          | {
+              beds?: T;
+              baths?: T;
+              cars?: T;
+            };
+        rows?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
       };
   id?: T;
   blockName?: T;
