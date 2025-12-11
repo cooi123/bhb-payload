@@ -558,7 +558,23 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: number | Media;
+  layout?: ('single' | 'grid' | 'flex') | null;
+  /**
+   * Use 3 columns for a classic gallery view.
+   */
+  columns?: ('2' | '3' | '4') | null;
+  galleryAspectRatio?: ('1:1' | '4:3' | '3:2' | '16:9') | null;
+  media?: (number | null) | Media;
+  /**
+   * Add multiple media items for the grid layout.
+   */
+  gallery?:
+    | {
+        media: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -1330,7 +1346,17 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  layout?: T;
+  columns?: T;
+  galleryAspectRatio?: T;
   media?: T;
+  gallery?:
+    | T
+    | {
+        media?: T;
+        caption?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
