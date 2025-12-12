@@ -1,4 +1,5 @@
 import type { StaticImageData } from 'next/image'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
@@ -9,8 +10,8 @@ import type { Media as MediaType, MediaBlock as MediaBlockProps } from '@/payloa
 import { Media } from '../../components/Media'
 
 type Props = MediaBlockProps & {
-  layout?: 'single' | 'grid' | 'flex'
-  columns?: string
+  layout?: 'single' | 'grid' | 'flex' | null
+  columns?: string | null
   galleryAspectRatio?: '1:1' | '3:2' | '4:3' | '16:9'
   gallery?: {
     media?: MediaType | number | string | null
@@ -40,7 +41,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     disableInnerContainer,
   } = props
 
-  let caption
+  let caption: DefaultTypedEditorState | null | undefined
   if (media && typeof media === 'object') caption = media.caption
 
   const aspectRatioValue = React.useMemo(() => {
@@ -101,11 +102,13 @@ export const MediaBlock: React.FC<Props> = (props) => {
 
   if (layout === 'grid' && Array.isArray(gallery) && gallery.length) {
     const columnClass =
-      {
-        '2': 'lg:grid-cols-2',
-        '3': 'lg:grid-cols-3',
-        '4': 'lg:grid-cols-4',
-      }[columns] || 'lg:grid-cols-3'
+      (columns &&
+        {
+          '2': 'lg:grid-cols-2',
+          '3': 'lg:grid-cols-3',
+          '4': 'lg:grid-cols-4',
+        }[columns]) ||
+      'lg:grid-cols-3'
 
     return (
       <div
