@@ -1,4 +1,5 @@
 import type { StaticImageData } from 'next/image'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
@@ -9,8 +10,8 @@ import type { Media as MediaType, MediaBlock as MediaBlockProps } from '@/payloa
 import { Media } from '../../components/Media'
 
 type Props = MediaBlockProps & {
-  layout?: 'single' | 'grid' | 'flex'
-  columns?: string
+  layout?: 'single' | 'grid' | 'flex' | null
+  columns?: string | null
   galleryAspectRatio?: '1:1' | '3:2' | '4:3' | '16:9'
   gallery?: {
     media?: MediaType | number | string | null
@@ -40,7 +41,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     disableInnerContainer,
   } = props
 
-  let caption
+  let caption: DefaultTypedEditorState | null | undefined
   if (media && typeof media === 'object') caption = media.caption
 
   const aspectRatioValue = React.useMemo(() => {
@@ -49,21 +50,21 @@ export const MediaBlock: React.FC<Props> = (props) => {
     return `${w} / ${h}`
   }, [galleryAspectRatio])
 
+  const spanSequence = React.useMemo(
+    () =>
+      [
+        ['lg:col-span-3', 'lg:col-span-3'], // 2-up
+        ['lg:col-span-2', 'lg:col-span-4'], // 2-up alt
+        ['lg:col-span-4', 'lg:col-span-2'], // 2-up flipped
+        ['lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2'], // 3-up even
+        ['lg:col-span-1', 'lg:col-span-2', 'lg:col-span-3'], // mixed widths
+      ].flat(),
+    [],
+  )
+
+  const getSpanClass = (index: number) => spanSequence[index % spanSequence.length]
+
   if (layout === 'flex' && Array.isArray(gallery) && gallery.length) {
-    const spanSequence = React.useMemo(
-      () =>
-        [
-          ['lg:col-span-3', 'lg:col-span-3'], // 2-up
-          ['lg:col-span-2', 'lg:col-span-4'], // 2-up alt
-          ['lg:col-span-4', 'lg:col-span-2'], // 2-up flipped
-          ['lg:col-span-2', 'lg:col-span-2', 'lg:col-span-2'], // 3-up even
-          ['lg:col-span-1', 'lg:col-span-2', 'lg:col-span-3'], // mixed widths
-        ].flat(),
-      [],
-    )
-
-    const getSpanClass = (index: number) => spanSequence[index % spanSequence.length]
-
     return (
       <div
         className={cn(
@@ -79,9 +80,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
 
             return (
               <div key={index} className={cn('flex flex-col gap-2', getSpanClass(index))}>
-                <div
-                  className="relative h-[220px] overflow-hidden border border-border sm:h-[240px] lg:h-[280px]"
-                >
+                <div className="relative h-[220px] overflow-hidden border border-border sm:h-[240px] lg:h-[280px]">
                   <Media
                     resource={item.media}
                     fill
@@ -90,7 +89,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
                     size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
-                {item.caption ? <p className="text-sm text-muted-foreground">{item.caption}</p> : null}
+                {item.caption ? (
+                  <p className="text-sm text-muted-foreground">{item.caption}</p>
+                ) : null}
               </div>
             )
           })}
@@ -101,11 +102,13 @@ export const MediaBlock: React.FC<Props> = (props) => {
 
   if (layout === 'grid' && Array.isArray(gallery) && gallery.length) {
     const columnClass =
-      {
-        '2': 'lg:grid-cols-2',
-        '3': 'lg:grid-cols-3',
-        '4': 'lg:grid-cols-4',
-      }[columns] || 'lg:grid-cols-3'
+      (columns &&
+        {
+          '2': 'lg:grid-cols-2',
+          '3': 'lg:grid-cols-3',
+          '4': 'lg:grid-cols-4',
+        }[columns]) ||
+      'lg:grid-cols-3'
 
     return (
       <div
@@ -134,7 +137,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
                     size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
-                {item.caption ? <p className="text-sm text-muted-foreground">{item.caption}</p> : null}
+                {item.caption ? (
+                  <p className="text-sm text-muted-foreground">{item.caption}</p>
+                ) : null}
               </div>
             )
           })}
