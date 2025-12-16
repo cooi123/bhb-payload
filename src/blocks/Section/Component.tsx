@@ -86,12 +86,29 @@ export const SectionBlock: React.FC<Props> = (props) => {
 
   const layout = mediaLayouts[mediaLayout]
 
-  const renderContent = () => (
-    <div className="flex flex-col gap-4">
-      {heading && <h2 className="text-3xl font-medium text-primary">{heading}</h2>}
-      {content && <RichText data={content} enableGutter={false} />}
+  const renderContent = (align: 'left' | 'right' = 'left') => (
+    <div className={cn('flex flex-col gap-4', align === 'right' && 'items-end text-right')}>
+      {heading && (
+        <h2
+          className={cn(
+            'text-3xl font-medium text-primary',
+            align === 'right' && 'text-right',
+          )}
+        >
+          {heading}
+        </h2>
+      )}
+      {content && <RichText data={content} enableGutter={false} align={align} />}
       {hasButton && (
-        <CMSLink {...buttonLink} appearance={buttonLink?.appearance ?? 'default'} size="lg" />
+        <CMSLink
+          {...buttonLink}
+          className={cn(
+            'w-fit',
+            align === 'left' ? 'self-start' : 'self-end',
+          )}
+          appearance={buttonLink?.appearance ?? 'default'}
+          size="lg"
+        />
       )}
     </div>
   )
@@ -137,13 +154,17 @@ export const SectionBlock: React.FC<Props> = (props) => {
           >
             {contentPosition === 'left' ? (
               <>
-                <div className="min-w-0 order-2 md:order-1">{renderContent()}</div>
+                <div className="min-w-0 order-2 md:order-1 px-6 py-8 md:px-10">
+                  {renderContent('left')}
+                </div>
                 <div className="order-1 md:order-2">{renderMedia('fill')}</div>
               </>
             ) : (
               <>
                 <div className="order-1 md:order-1">{renderMedia('fill')}</div>
-                <div className="min-w-0 order-2 md:order-2">{renderContent()}</div>
+                <div className="min-w-0 order-2 md:order-2 px-6 py-8 md:px-10">
+                  {renderContent('right')}
+                </div>
               </>
             )}
           </div>
@@ -155,7 +176,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
             )}
           >
             {layout === 'imageLeft' && renderMedia()}
-            <div className="min-w-0">{renderContent()}</div>
+            <div className="min-w-0">{layout === 'imageLeft' ? renderContent('right') : renderContent('left')}</div>
             {layout === 'imageRight' && renderMedia()}
           </div>
         )}
