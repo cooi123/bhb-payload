@@ -108,6 +108,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
   if (!slides || slides.length === 0) {
     return null
   }
+  console.log('buttonLink', buttonLink)
   return (
     <section
       className={cn(
@@ -223,7 +224,6 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
             size="lg"
             className={cn('min-w-[12rem] justify-center', buttonLink?.className)}
           >
-            {buttonText}
           </CMSLink>
         </div>
       )}
