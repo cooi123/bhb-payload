@@ -208,6 +208,7 @@ export interface Page {
     | FormBlock
     | SectionBlock
     | ContactUsBlock
+    | ProcessTimelineBlock
   )[];
   meta?: {
     title?: string | null;
@@ -984,6 +985,27 @@ export interface ContactUsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessTimelineBlock".
+ */
+export interface ProcessTimelineBlock {
+  phases?:
+    | {
+        title: string;
+        details?:
+          | {
+              detail: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processTimeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1293,6 +1315,7 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         section?: T | SectionBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
+        processTimeline?: T | ProcessTimelineBlockSelect<T>;
       };
   meta?:
     | T
@@ -1505,6 +1528,26 @@ export interface ContactUsBlockSelect<T extends boolean = true> {
   mapEmbedUrl?: T;
   backgroundColor?: T;
   customBackgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessTimelineBlock_select".
+ */
+export interface ProcessTimelineBlockSelect<T extends boolean = true> {
+  phases?:
+    | T
+    | {
+        title?: T;
+        details?:
+          | T
+          | {
+              detail?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

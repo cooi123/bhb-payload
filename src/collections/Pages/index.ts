@@ -7,6 +7,7 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { ContactUs } from '../../blocks/ContactUs/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
+import { ProcessTimelineBlock } from '@/blocks/ProcessTimeline/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/config'
 import { SectionBlock } from '@/blocks/Section/config'
@@ -75,7 +76,17 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, MediaCarouselBlock, Archive, FormBlock, SectionBlock, ContactUs],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                MediaCarouselBlock,
+                Archive,
+                FormBlock,
+                SectionBlock,
+                ContactUs,
+                ProcessTimelineBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
