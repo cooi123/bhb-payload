@@ -172,7 +172,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                     ) : (
                       <div
                         className={cn(
-                          'relative block w-full overflow-hidden rounded-2xl border border-border bg-background',
+                          'relative block w-full overflow-hidden bg-background',
                           aspectClass,
                         )}
                       >
@@ -181,6 +181,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                             resource={slide.media}
                             className="h-full w-full"
                             imgClassName="h-full w-full object-cover"
+                            
                           />
                         )}
                       </div>
