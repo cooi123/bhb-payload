@@ -73,6 +73,30 @@ const columnFields: Field[] = [
     },
   },
   {
+    name: 'blockAlign',
+    type: 'select',
+    defaultValue: 'left',
+    options: [
+      {
+        label: 'Left',
+        value: 'left',
+      },
+      {
+        label: 'Center',
+        value: 'center',
+      },
+      {
+        label: 'Right',
+        value: 'right',
+      },
+    ],
+    admin: {
+      condition: (_data, siblingData) => {
+        return Boolean(siblingData?.richText)
+      },
+    },
+  },
+  {
     name: 'media',
     type: 'upload',
     relationTo: 'media',

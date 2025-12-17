@@ -50,6 +50,12 @@ export const ContentBlock: React.FC<ContentBlockPropsWithTable> = (props) => {
     right: 'text-right',
   }
 
+  const blockAlignClasses = {
+    left: 'items-start',
+    center: 'items-center',
+    right: 'items-end',
+  }
+
   const backgroundClasses =
     backgroundColor === 'custom'
       ? 'text-foreground bg-card'
@@ -101,17 +107,21 @@ export const ContentBlock: React.FC<ContentBlockPropsWithTable> = (props) => {
             {heading}
           </h2>
         )}
-        <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
+        <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16 ">
           {columns &&
             columns.length > 0 &&
             columns.map((col, index) => {
-              const { enableLink, link, media, mediaPosition = 'above', richText, size, textAlign = 'left' } = col
+              const { enableLink, link, media, mediaPosition = 'above', richText, size, blockAlign = 'left', textAlign = 'left' } = col
 
               return (
                 <div
-                  className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
-                    'md:col-span-2': size !== 'full',
-                  })}
+                  className={cn(
+                    `col-span-4 lg:col-span-${colsSpanClasses[size!]} flex flex-col`,
+                    {
+                      'md:col-span-2': size !== 'full',
+                    },
+                    blockAlignClasses[blockAlign as keyof typeof blockAlignClasses]
+                  )}
                   key={index}
                 >
                   {media && mediaPosition === 'above' && (
@@ -125,7 +135,7 @@ export const ContentBlock: React.FC<ContentBlockPropsWithTable> = (props) => {
                       <RichText 
                         data={richText} 
                         enableGutter={false} 
-                        align={textAlign as 'left' | 'center' | 'right'} 
+                        align={textAlign as 'left' | 'center' | 'right'}
                       />
                     </div>
                   )}
