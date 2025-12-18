@@ -17,6 +17,27 @@ export const MediaCarouselBlock: Block = {
   },
   fields: [
     {
+      name: 'backgroundColor',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'primary',
+      required: true,
+      options: [
+        { label: 'Primary', value: 'primary' },
+        { label: 'Secondary', value: 'secondary' },
+        { label: 'Custom', value: 'custom' },
+      ],
+    },
+    {
+      name: 'customBackgroundColor',
+      label: 'Custom background color',
+      type: 'text',
+      admin: {
+        condition: (_, { backgroundColor }) => backgroundColor === 'custom',
+        description: 'Provide any valid CSS color value (e.g. #E4E4E7).',
+      },
+    },
+    {
       name: 'heading',
       label: 'Heading',
       type: 'text',
