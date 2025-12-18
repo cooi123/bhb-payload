@@ -525,6 +525,7 @@ export interface ContentBlock {
           [k: string]: unknown;
         } | null;
         textAlign?: ('left' | 'center' | 'right') | null;
+        blockAlign?: ('left' | 'center' | 'right') | null;
         media?: (number | null) | Media;
         mediaPosition?: ('above' | 'below') | null;
         enableLink?: boolean | null;
@@ -1370,6 +1371,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
         size?: T;
         richText?: T;
         textAlign?: T;
+        blockAlign?: T;
         media?: T;
         mediaPosition?: T;
         enableLink?: T;
