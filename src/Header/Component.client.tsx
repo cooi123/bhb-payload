@@ -36,9 +36,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       '-translate-y-full opacity-0': !show,
       'translate-y-0 opacity-100': show,
     })}>
-      <div className="container flex items-center justify-between py-8">
+      <div className="container flex items-center justify-between py-6">
         <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+          <Logo loading="eager" priority="high" />
         </Link>
         <HeaderNav data={data} />
       </div>

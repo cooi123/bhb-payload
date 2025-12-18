@@ -12,7 +12,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex items-center gap-3 text-primary">
+    <nav className="flex items-center gap-10 text-primary">
       {navItems.map(({ link }, i) => {
         const href =
           link?.type === 'reference' &&
@@ -31,7 +31,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             size="clear"
             variant="link"
-            className="text-primary hover:text-primary/80 font-bold"
+            className="font-serif text-lg tracking-[0.2em] text-primary hover:text-primary/80 uppercase"
           >
             <Link href={href}>{link?.label}</Link>
           </Button>
