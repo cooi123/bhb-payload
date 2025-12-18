@@ -31,7 +31,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             size="clear"
             variant="link"
-            className="font-serif text-lg tracking-[0.2em] text-primary hover:text-primary/80 uppercase"
+            className="font-serif text-lg text-primary hover:text-primary/80 uppercase"
           >
             <Link href={href}>{link?.label}</Link>
           </Button>
