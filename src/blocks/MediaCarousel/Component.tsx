@@ -3,12 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import type { Media as PayloadMedia } from '@/payload-types'
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
@@ -52,10 +47,7 @@ const aspectRatioClasses: Record<
   '1:1': 'aspect-square',
 }
 
-const slideWidthClasses: Record<
-  NonNullable<MediaCarouselBlockProps['slideSize']>,
-  string
-> = {
+const slideWidthClasses: Record<NonNullable<MediaCarouselBlockProps['slideSize']>, string> = {
   small: 'basis-full md:basis-1/3 lg:basis-1/4',
   medium: 'basis-full md:basis-2/3 lg:basis-1/3',
   large: 'basis-full md:basis-5/6 lg:basis-1/2',
@@ -73,7 +65,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     slides,
     slideAspectRatio = '16:9',
     slideSize = 'medium',
-    loopSlides = true,
+    loopSlides = false,
     buttonLink,
     backgroundColor = 'primary',
     customBackgroundColor,
@@ -93,7 +85,6 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     buttonLink &&
     ((buttonLink.type === 'custom' && buttonLink.url) ||
       (buttonLink.type === 'reference' && buttonLink.reference))
-  const buttonText = buttonLink?.label ?? 'View All'
 
   const backgroundClasses =
     backgroundColor === 'custom'
@@ -108,37 +99,15 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
       ? { backgroundColor: customBackgroundColor }
       : undefined
 
-  useEffect(() => {
-    if (!api) return
-
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap())
-
-    const handleSelect = () => {
-      setCurrent(api.selectedScrollSnap())
-    }
-
-    api.on('select', handleSelect)
-    api.on('reInit', handleSelect)
-
-    return () => {
-      api.off('select', handleSelect)
-      api.off('reInit', handleSelect)
-    }
-  }, [api])
-
   if (!slides || slides.length === 0) {
     return null
   }
   return (
     <section className={cn(backgroundClasses)} style={backgroundStyle}>
       <div
-        className={cn(
-          'space-y-8 py-12',
-          {
-            container: enableGutter && !disableInnerContainer,
-          },
-        )}
+        className={cn('space-y-8 py-12', {
+          container: enableGutter && !disableInnerContainer,
+        })}
       >
         <div className="space-y-4">
           {heading && <h2 className="text-3xl font-semibold text-primary">{heading}</h2>}
@@ -163,10 +132,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
           >
             <CarouselContent className="justify-center">
               {slides.map((slide) => (
-                <CarouselItem
-                  key={slide.id}
-                  className={cn(slideWidthClass)}
-                >
+                <CarouselItem key={slide.id} className={cn(slideWidthClass)}>
                   <div className="flex flex-col gap-4">
                     <div className="relative group">
                       {slide.linkUrl ? (
@@ -181,7 +147,9 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/70 via-transparent to-transparent" />
                           <div className="absolute inset-0 z-20 flex items-center justify-center gap-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                             <SquareArrowOutUpRight className="h-5 w-5" />
-                            <p className="text-sm font-semibold uppercase tracking-widest">learn more</p>
+                            <p className="text-sm font-semibold uppercase tracking-widest">
+                              learn more
+                            </p>
                           </div>
                           {slide.media && (
                             <Media
@@ -222,7 +190,9 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <p className="mt-3 text-center text-xs text-muted-foreground xl:hidden">Swipe to explore</p>
+            <p className="mt-3 text-center text-xs text-muted-foreground xl:hidden">
+              Swipe to explore
+            </p>
             {count > 1 && (
               <div className="flex justify-center gap-2 py-3 text-center text-xs text-muted-foreground sm:gap-3 xl:mt-4">
                 {Array.from({ length: count }).map((_, index) => (
@@ -245,9 +215,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
               appearance={buttonLink?.appearance ?? 'default'}
               size="lg"
               className={cn('min-w-[12rem] justify-center', buttonLink?.className)}
-            >
-              {buttonText}
-            </CMSLink>
+            ></CMSLink>
           </div>
         )}
       </div>

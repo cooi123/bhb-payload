@@ -20,20 +20,20 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center">
-        <div className="max-w-[36.5rem] md:text-center">
+        <div className="max-w-[36.5rem] md:text-center heading-1">
           {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="flex md:justify-center gap-4">
               {links.map(({ link }, i) => {
                 return (
-                <button
-                  key={i}
-                  className="rounded-full px-6 py-2 min-w-[8rem] text-center border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                >
-                  <Link href={link.url || ''} className="block w-full">
-                    {link.label}
-                  </Link>
-                </button>
+                  <button
+                    key={i}
+                    className="rounded-full px-6 py-2 min-w-[8rem] text-center border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-semibold"
+                  >
+                    <Link href={link.url || ''} className="block w-full">
+                      {link.label}
+                    </Link>
+                  </button>
                 )
               })}
             </ul>

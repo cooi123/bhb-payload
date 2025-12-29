@@ -610,6 +610,11 @@ export interface MediaBlock {
  * via the `definition` "MediaCarouselBlock".
  */
 export interface MediaCarouselBlock {
+  backgroundColor: 'primary' | 'secondary' | 'custom';
+  /**
+   * Provide any valid CSS color value (e.g. #E4E4E7).
+   */
+  customBackgroundColor?: string | null;
   heading?: string | null;
   description?: {
     root: {
@@ -1436,6 +1441,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaCarouselBlock_select".
  */
 export interface MediaCarouselBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  customBackgroundColor?: T;
   heading?: T;
   description?: T;
   slideAspectRatio?: T;
