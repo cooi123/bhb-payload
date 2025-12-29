@@ -16,7 +16,7 @@ export const Logo = (props: Props) => {
   return (
     <div
       className={clsx(
-        'font-serif text-lg sm:text-xl md:text-[2rem] leading-none text-primary uppercase whitespace-nowrap',
+        'font-serif text-xl leading-none text-primary uppercase whitespace-nowrap font-semibold',
         className,
       )}
     >

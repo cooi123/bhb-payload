@@ -7,12 +7,16 @@ import type { Header as HeaderType } from '@/payload-types'
 import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/utilities/ui'
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+export const HeaderNav: React.FC<{ data: HeaderType; className?: string }> = ({
+  data,
+  className,
+}) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex items-center gap-10 text-primary">
+    <nav className={cn('flex items-center gap-6 text-primary', className)}>
       {navItems.map(({ link }, i) => {
         const href =
           link?.type === 'reference' &&
@@ -31,7 +35,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             size="clear"
             variant="link"
-            className="font-serif text-lg text-primary hover:text-primary/80 uppercase"
+            className="font-serif text-xs text-primary hover:text-primary/80 uppercase font-semibold"
           >
             <Link href={href}>{link?.label}</Link>
           </Button>
