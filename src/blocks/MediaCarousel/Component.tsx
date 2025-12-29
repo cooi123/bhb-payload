@@ -1,13 +1,19 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import type { Media as PayloadMedia } from '@/payload-types'
 
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
-import Autoplay from 'embla-carousel-autoplay'
 import { SquareArrowOutUpRight } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 
@@ -75,9 +81,6 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
 
   const aspectClass = aspectRatioClasses[slideAspectRatio] ?? aspectRatioClasses['16:9']
   const slideWidthClass = slideWidthClasses[slideSize] ?? slideWidthClasses.medium
-  const autoplayPlugin = useRef<ReturnType<typeof Autoplay> | null>(
-    Autoplay({ delay: 2500, stopOnInteraction: false }),
-  )
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -85,6 +88,27 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     buttonLink &&
     ((buttonLink.type === 'custom' && buttonLink.url) ||
       (buttonLink.type === 'reference' && buttonLink.reference))
+
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap() + 1)
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
+
+  const handlePrevious = () => {
+    api?.scrollPrev()
+  }
+
+  const handleNext = () => {
+    api?.scrollNext()
+  }
 
   const backgroundClasses =
     backgroundColor === 'custom'
@@ -121,16 +145,15 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
         </div>
         <div className="relative">
           <Carousel
-            className="w-full"
+            className="max-w-full"
             opts={{
+              loop: loopSlides ?? false,
               align: 'start',
-              loop: loopSlides && slides.length > 1,
               dragFree: true,
             }}
-            plugins={autoplayPlugin.current ? [autoplayPlugin.current] : undefined}
             setApi={setApi}
           >
-            <CarouselContent className="justify-center">
+            <CarouselContent>
               {slides.map((slide) => (
                 <CarouselItem key={slide.id} className={cn(slideWidthClass)}>
                   <div className="flex flex-col gap-4">
@@ -190,9 +213,12 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <CarouselPrevious onClick={handlePrevious} className="left-2 md:left-4" />
+            <CarouselNext onClick={handleNext} className="right-2 md:right-4" />
             <p className="mt-3 text-center text-xs text-muted-foreground xl:hidden">
               Swipe to explore
             </p>
+
             {count > 1 && (
               <div className="flex justify-center gap-2 py-3 text-center text-xs text-muted-foreground sm:gap-3 xl:mt-4">
                 {Array.from({ length: count }).map((_, index) => (
@@ -200,7 +226,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                     key={index}
                     className={cn(
                       'inline-block h-2 w-2 rounded-full transition-colors',
-                      index === current ? 'bg-foreground/70' : 'bg-muted',
+                      index === current - 1 ? 'bg-foreground/70' : 'bg-muted',
                     )}
                   />
                 ))}
