@@ -126,6 +126,11 @@ html[data-theme='light'] {
     @apply heading-1;
   }
   
+  .section-heading {
+    @apply text-3xl lg:text-5xl font-medium;
+    font-family: var(--font-playfair), serif;
+  }
+  
   .font-montserrat {
     font-family: var(--font-montserrat), sans-serif;
   }
