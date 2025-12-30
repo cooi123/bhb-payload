@@ -36,7 +36,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       className={cn(
         'relative z-20 w-full sticky top-0 text-primary transition-all duration-300 bg-layout',
         {
-          'bg-transparent': atTop,
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
         },

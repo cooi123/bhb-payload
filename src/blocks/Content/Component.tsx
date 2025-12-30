@@ -100,7 +100,7 @@ export const ContentBlock: React.FC<ContentBlockPropsWithTable> = (props) => {
         {heading && (
           <h2
             className={cn(
-              'text-4xl text-primary mb-8 break-words',
+              'section-heading text-primary mb-8 break-words',
               headingAlignClasses[headingAlign as keyof typeof headingAlignClasses]
             )}
           >

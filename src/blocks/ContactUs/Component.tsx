@@ -156,15 +156,15 @@ export const ContactUsBlock: React.FC<Props> = ({
 
   return (
     <div className={cn(backgroundClasses, className)} style={backgroundStyle}>
-      <div className="container py-16">
+      <div className="container py-16 text-left">
         <div className="max-w-7xl mx-auto">
         {(heading || subheading) && (
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             {heading && (
-              <h2 className="text-4xl lg:text-5xl font-serif text-primary mb-2">{heading}</h2>
+              <h2 className="section-heading text-primary mb-2">{heading}</h2>
             )}
             {subheading && (
-              <h3 className="text-2xl lg:text-3xl font-serif text-primary">{subheading}</h3>
+              <h3 className="section-heading text-primary">{subheading}</h3>
             )}
           </div>
         )}
@@ -175,7 +175,7 @@ export const ContactUsBlock: React.FC<Props> = ({
             {formHeading && (
               <h3 className="text-2xl font-serif text-primary mb-6">{formHeading}</h3>
             )}
-            <div className="p-6 lg:p-8">
+            <div className="pb-6 pr-6 lg:pb-8 lg:pr-8">
               <FormProvider {...formMethods}>
                 {!isLoading && hasSubmitted && formData?.confirmationType === 'message' && (
                   <RichText data={formData?.confirmationMessage} />
@@ -190,7 +190,7 @@ export const ContactUsBlock: React.FC<Props> = ({
                   <form
                     id={formData.id}
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-6 [&_input]:border-0 [&_input]:border-b [&_input]:rounded-none [&_input]:px-0 [&_input]:bg-transparent [&_textarea]:rounded-none [&_textarea]:px-0 [&_textarea]:bg-transparent [&_select]:border-0 [&_select]:border-b [&_select]:rounded-none [&_select]:px-0 [&_select]:bg-transparent"
+                    className="space-y-6 [&_label]:text-primary [&_input]:border-0 [&_input]:border-b [&_input]:rounded-none [&_input]:px-0 [&_input]:bg-transparent [&_textarea]:rounded-none [&_textarea]:px-0 [&_textarea]:bg-transparent [&_select]:border-0 [&_select]:border-b [&_select]:rounded-none [&_select]:px-0 [&_select]:bg-transparent"
                   >
                     {formData.fields &&
                       formData.fields.map((field, index) => {
@@ -240,7 +240,7 @@ export const ContactUsBlock: React.FC<Props> = ({
             <div className="space-y-6">
               {phoneNumber && (
                 <div>
-                  <h4 className="text-lg font-semibold text-primary mb-2">Call us</h4>
+                  <h4 className="text-lg font-light text-primary mb-2">Call us</h4>
                   <a
                     href={`tel:${phoneNumber.replace(/\s/g, '')}`}
                     className="text-foreground hover:text-primary transition-colors"
@@ -252,7 +252,7 @@ export const ContactUsBlock: React.FC<Props> = ({
 
               {email && (
                 <div>
-                  <h4 className="text-lg font-semibold text-primary mb-2">Email us</h4>
+                  <h4 className="text-lg font-light text-primary mb-2">Email us</h4>
                   <a
                     href={`mailto:${email}`}
                     className="text-foreground hover:text-primary transition-colors"
@@ -264,7 +264,7 @@ export const ContactUsBlock: React.FC<Props> = ({
 
               {address && (
                 <div>
-                  <h4 className="text-lg font-semibold text-primary mb-2">Visit us</h4>
+                  <h4 className="text-lg font-light text-primary mb-2">Visit us</h4>
                   <p className="text-foreground whitespace-pre-line">{address}</p>
                 </div>
               )}

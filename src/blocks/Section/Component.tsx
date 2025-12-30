@@ -23,7 +23,7 @@ const mediaLayouts: Record<
 
 const backgroundBackgroundClasses: Record<'primary' | 'secondary', string> = {
   primary: 'bg-background text-black',
-  secondary: 'bg-secondary text-black',
+  secondary: 'bg-[#D3D3D3] text-black',
 }
 
 const heightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
@@ -91,14 +91,14 @@ export const SectionBlock: React.FC<Props> = (props) => {
       {heading && (
         <h2
           className={cn(
-            'text-3xl font-medium text-primary',
+            'section-heading text-primary',
             align === 'right' && 'text-right',
           )}
         >
           {heading}
         </h2>
       )}
-      {content && <RichText data={content} enableGutter={false} align={align} />}
+      {content && <RichText data={content} enableGutter={false} align={align} className='text-3xl font-extralight' />}
       {hasButton && (
         <CMSLink
           {...buttonLink}
