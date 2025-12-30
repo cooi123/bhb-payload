@@ -38,10 +38,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
+          'bg-transparent': atTop,
         },
       )}
     >
-      <div className="container flex items-center justify-between py-6">
+      <div className="container flex items-center justify-between py-2 md:py-4 lg:py-6">
         <Link href="/">
           <Logo loading="eager" priority="high" />
         </Link>
