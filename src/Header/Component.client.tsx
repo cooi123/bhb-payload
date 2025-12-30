@@ -38,7 +38,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
-          'bg-transparent': atTop,
+          'bg-transparent text-white': atTop,
         },
       )}
     >

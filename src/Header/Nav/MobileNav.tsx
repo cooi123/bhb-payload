@@ -15,9 +15,11 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/utilities/ui'
 import { Logo } from '@/components/Logo/Logo'
+import { useNavbarScroll } from '@/hooks/useNavarbarScroll'
 
 export const MobileNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
+  const { atTop } = useNavbarScroll()
 
   return (
     <Sheet>
@@ -28,7 +30,7 @@ export const MobileNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           className="md:hidden text-primary hover:text-primary/80"
           aria-label="Toggle menu"
         >
-          <Menu className="h-6 w-6" />
+          <Menu className={cn("h-6 w-6", atTop ? 'text-white' : 'text-primary')} />
         </Button>
       </SheetTrigger>
       <SheetContent side="top" className="w-full">

@@ -1,3 +1,4 @@
+import { useNavbarScroll } from '@/hooks/useNavarbarScroll'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -9,6 +10,7 @@ interface Props {
 
 export const Logo = (props: Props) => {
   const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+  const { atTop } = useNavbarScroll()
 
   const loading = loadingFromProps || 'lazy'
   const priority = priorityFromProps || 'low'
@@ -16,8 +18,9 @@ export const Logo = (props: Props) => {
   return (
     <div
       className={clsx(
-        'font-serif text-xl leading-none text-primary uppercase whitespace-nowrap font-semibold',
+        'font-serif text-sm md:text-base lg:text-xl leading-none text-primary uppercase whitespace-nowrap font-semibold',
         className,
+        atTop ? 'text-white' : 'text-primary',
       )}
     >
       BEDFORD&nbsp;HOME&nbsp;BUILDER
