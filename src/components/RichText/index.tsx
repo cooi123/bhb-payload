@@ -77,7 +77,7 @@ export default function RichText(props: Props) {
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext prose-headings:text-primary',
+        'payload-richtext prose-headings:text-primary prose-h5:text-foreground prose-h6:text-foreground',
         align === 'left' && 'text-left',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',

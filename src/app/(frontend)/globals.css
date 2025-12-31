@@ -6,12 +6,17 @@
   h1,
   h2,
   h3,
-  h4,
+  h4{
+    font-size: unset;
+    font-weight: unset;
+    font-family: var(--font-playfair), serif;
+  }
+  /* subheadings */
   h5,
   h6 {
     font-size: unset;
     font-weight: unset;
-    font-family: var(--font-playfair), serif;
+    font-family: var(--font-montserrat), sans-serif;
   }
   
   button,
@@ -85,6 +90,20 @@ html[data-theme='light'] {
   .btn-outline-primary {
     @apply bg-transparent border border-primary text-primary;
   }
+  
+  /* Override h5 subheading styles in prose context */
+  .prose h5,
+  .prose-md h5 {
+    @apply text-foreground font-extralight text-3xl mb-4 !important;
+    font-family: var(--font-montserrat), sans-serif;
+  }
+  
+  /* Override h6 subheading styles in prose context */
+  .prose h6,
+  .prose-md h6 {
+    @apply text-foreground font-extralight text-2xl mb-4 !important;
+    font-family: var(--font-montserrat), sans-serif;
+  }
 }
 
 @layer utilities {
@@ -112,13 +131,11 @@ html[data-theme='light'] {
   }
   
   .heading-5 {
-    @apply text-primary font-bold text-lg mb-4;
-    font-family: var(--font-playfair), serif;
+    @apply text-black font-extralight text-2xl mb-4;
   }
   
   .heading-6 {
-    @apply text-primary font-bold text-base mb-4;
-    font-family: var(--font-playfair), serif;
+    @apply text-foreground font-bold text-base mb-4;
   }
   
   /* Keep .heading as alias for heading-1 for backward compatibility */
