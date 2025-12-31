@@ -74,13 +74,13 @@ export const MediaBlock: React.FC<Props> = (props) => {
           className,
         )}
       >
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6 py-16">
           {gallery.map((item, index) => {
             if (!item?.media) return null
 
             return (
               <div key={index} className={cn('flex flex-col gap-2', getSpanClass(index))}>
-                <div className="relative h-[220px] overflow-hidden sm:h-[240px] lg:h-[280px]">
+                <div className="relative h-[220px] overflow-hidden sm:h-[240px] lg:h-[280px] hover:scale-105 transition-all duration-300">
                   <Media
                     resource={item.media}
                     fill
@@ -119,14 +119,14 @@ export const MediaBlock: React.FC<Props> = (props) => {
           className,
         )}
       >
-        <div className={cn('grid grid-cols-1 gap-6 sm:grid-cols-2', columnClass)}>
+        <div className={cn('grid grid-cols-1 gap-6 sm:grid-cols-2 py-16', columnClass)}>
           {gallery.map((item, index) => {
             if (!item?.media) return null
 
             return (
               <div key={index} className="flex flex-col gap-2">
                 <div
-                  className="relative overflow-hidden"
+                  className="relative overflow-hidden hover:scale-105 transition-all duration-300"
                   style={aspectRatioValue ? { aspectRatio: aspectRatioValue } : undefined}
                 >
                   <Media
