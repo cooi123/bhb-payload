@@ -10,6 +10,7 @@ import { FormBlock } from '../../blocks/Form/config'
 import { ProcessTimelineBlock } from '@/blocks/ProcessTimeline/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/config'
+import { ProductMediaBlock } from '../../blocks/ProductMediaBlock/config'
 import { SectionBlock } from '@/blocks/Section/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 SectionBlock,
                 ContactUs,
                 ProcessTimelineBlock,
+                ProductMediaBlock,
               ],
               required: true,
               admin: {
