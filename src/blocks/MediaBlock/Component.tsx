@@ -80,7 +80,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
 
             return (
               <div key={index} className={cn('flex flex-col gap-2', getSpanClass(index))}>
-                <div className="relative h-[220px] overflow-hidden border border-border sm:h-[240px] lg:h-[280px]">
+                <div className="relative h-[220px] overflow-hidden sm:h-[240px] lg:h-[280px]">
                   <Media
                     resource={item.media}
                     fill
@@ -126,7 +126,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
             return (
               <div key={index} className="flex flex-col gap-2">
                 <div
-                  className="relative overflow-hidden border border-border"
+                  className="relative overflow-hidden"
                   style={aspectRatioValue ? { aspectRatio: aspectRatioValue } : undefined}
                 >
                   <Media
@@ -160,7 +160,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     >
       {(media || staticImage) && (
         <Media
-          imgClassName={cn('border border-border', imgClassName)}
+          imgClassName={cn(imgClassName)}
           resource={media}
           src={staticImage}
         />
