@@ -1,17 +1,17 @@
 import { useNavbarScroll } from '@/hooks/useNavarbarScroll'
 import clsx from 'clsx'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 interface Props {
   className?: string
   loading?: 'lazy' | 'eager'
   priority?: 'auto' | 'high' | 'low'
+  transparent?: boolean
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
-  const { atTop } = useNavbarScroll()
-
+  const { loading: loadingFromProps, priority: priorityFromProps, className, transparent } = props
   const loading = loadingFromProps || 'lazy'
   const priority = priorityFromProps || 'low'
 
@@ -20,7 +20,7 @@ export const Logo = (props: Props) => {
       className={clsx(
         'font-serif text-sm md:text-base lg:text-xl leading-none text-primary uppercase whitespace-nowrap font-semibold',
         className,
-        atTop ? 'text-white' : 'text-primary',
+        transparent? 'text-white' : 'text-primary',
       )}
     >
       BEDFORD&nbsp;HOME&nbsp;BUILDER

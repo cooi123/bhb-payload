@@ -38,16 +38,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         {
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
-          'bg-transparent text-white': atTop,
+          'bg-transparent text-white': atTop && pathname == '/',
         },
       )}
     >
       <div className="container flex items-center justify-between py-2 md:py-4 lg:py-6">
         <Link href="/">
-          <Logo loading="eager" priority="high" />
+          <Logo loading="eager" priority="high" transparent={atTop && pathname == '/'} />
         </Link>
-        <HeaderNav data={data} className="md:flex hidden" />
-        <MobileNav data={data} />
+        <HeaderNav data={data} className="md:flex hidden"  transparent={atTop && pathname == '/'}/>
+        <MobileNav data={data} transparent={atTop && pathname == '/'}/>
       </div>
     </header>
   )

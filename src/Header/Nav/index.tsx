@@ -10,12 +10,12 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { useNavbarScroll } from '@/hooks/useNavarbarScroll'
 
-export const HeaderNav: React.FC<{ data: HeaderType; className?: string }> = ({
+export const HeaderNav: React.FC<{ data: HeaderType; className?: string ; transparent?: boolean}> = ({
   data,
   className,
+  transparent,
 }) => {
   const navItems = data?.navItems || []
-  const { atTop } = useNavbarScroll()
   return (
     <nav className={cn('flex items-center gap-6 text-primary', className)}>
       {navItems.map(({ link }, i) => {
@@ -36,7 +36,7 @@ export const HeaderNav: React.FC<{ data: HeaderType; className?: string }> = ({
             key={i}
             size="clear"
             variant="link"
-            className={cn("font-serif text-xs text-primary hover:text-primary/80 uppercase font-semibold", atTop ? 'text-white' : 'text-primary')}
+            className={cn("font-serif text-xs text-primary hover:text-primary/80 uppercase font-semibold", transparent? 'text-white' : 'text-primary')}
           >
             <Link href={href}>{link?.label}</Link>
           </Button>
