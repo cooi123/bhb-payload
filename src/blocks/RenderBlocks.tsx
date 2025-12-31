@@ -10,6 +10,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/Component'
+import { ProductMediaBlock } from '@/blocks/ProductMediaBlock/Component'
 import { SectionBlock } from '@/blocks/Section/Component'
 
 const blockComponents = {
@@ -21,6 +22,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   processTimeline: ProcessTimelineBlock,
   mediaCarousel: MediaCarouselBlock,
+  productMediaBlock: ProductMediaBlock,
   section: SectionBlock,
 }
 

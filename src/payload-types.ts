@@ -209,6 +209,7 @@ export interface Page {
     | SectionBlock
     | ContactUsBlock
     | ProcessTimelineBlock
+    | ProductMediaBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1012,6 +1013,45 @@ export interface ProcessTimelineBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductMediaBlock".
+ */
+export interface ProductMediaBlock {
+  /**
+   * Use 3 columns for a classic gallery view.
+   */
+  columns?: ('2' | '3' | '4') | null;
+  galleryAspectRatio?: ('1:1' | '4:3' | '3:2' | '16:9') | null;
+  /**
+   * Add product items to showcase.
+   */
+  products?:
+    | {
+        media: number | Media;
+        title: string;
+        comingSoon?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'productMediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1322,6 +1362,7 @@ export interface PagesSelect<T extends boolean = true> {
         section?: T | SectionBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
         processTimeline?: T | ProcessTimelineBlockSelect<T>;
+        productMediaBlock?: T | ProductMediaBlockSelect<T>;
       };
   meta?:
     | T
@@ -1554,6 +1595,32 @@ export interface ProcessTimelineBlockSelect<T extends boolean = true> {
           | {
               detail?: T;
               id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductMediaBlock_select".
+ */
+export interface ProductMediaBlockSelect<T extends boolean = true> {
+  columns?: T;
+  galleryAspectRatio?: T;
+  products?:
+    | T
+    | {
+        media?: T;
+        title?: T;
+        comingSoon?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
             };
         id?: T;
       };
