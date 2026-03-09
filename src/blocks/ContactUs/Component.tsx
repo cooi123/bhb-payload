@@ -53,6 +53,9 @@ export const ContactUsBlock: React.FC<Props> = ({
   backgroundColor = 'primary',
   customBackgroundColor,
 }) => {
+  const defaultMapEmbedUrl =
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d787.1373296698581!2d145.13445176970083!3d-37.894221139919686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad66aac81e64ec7%3A0xd6609f6cd6b136b5!2s7%2F21-35%20Ricketts%20Rd%2C%20Mount%20Waverley%20VIC%203149!5e0!3m2!1sen!2sau!4v1773058550409!5m2!1sen!2sau'
+
   const formData = form as FormType
 
   const formMethods = useForm({
@@ -269,11 +272,11 @@ export const ContactUsBlock: React.FC<Props> = ({
                 </div>
               )}
 
-              {mapEmbedUrl && (
+              {(mapEmbedUrl || defaultMapEmbedUrl) && (
                 <div className="mt-8">
-                  <div className="w-full h-64 lg:h-80 rounded-lg overflow-hidden border border-border">
+                  <div className="w-full aspect-[16/9] lg:aspect-[2/1] rounded-lg overflow-hidden">
                     <iframe
-                      src={mapEmbedUrl}
+                      src={mapEmbedUrl || defaultMapEmbedUrl}
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}

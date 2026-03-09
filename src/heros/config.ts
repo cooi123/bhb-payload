@@ -32,6 +32,10 @@ export const hero: Field = {
           value: 'mediumImpact',
         },
         {
+          label: 'Full Impact',
+          value: 'fullImpact',
+        },
+        {
           label: 'Low Impact',
           value: 'lowImpact',
         },
@@ -59,10 +63,56 @@ export const hero: Field = {
       },
     }),
     {
+      name: 'height',
+      type: 'select',
+      defaultValue: '1/3',
+      label: 'Full Impact Height',
+      options: [
+        {
+          label: '1/2',
+          value: '1/2',
+        },
+        {
+          label: '1/3',
+          value: '1/3',
+        },
+        {
+          label: '1/4',
+          value: '1/4',
+        },
+      ],
+      admin: {
+        condition: (_, { type } = {}) => type === 'fullImpact',
+      },
+    },
+    {
+      name: 'textAlignment',
+      type: 'select',
+      defaultValue: 'left',
+      label: 'Full Impact Text Alignment',
+      options: [
+        {
+          label: 'Left',
+          value: 'left',
+        },
+        {
+          label: 'Center',
+          value: 'center',
+        },
+        {
+          label: 'Right',
+          value: 'right',
+        },
+      ],
+      admin: {
+        condition: (_, { type } = {}) => type === 'fullImpact',
+      },
+    },
+    {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'fullImpact'].includes(type),
       },
       relationTo: 'media',
       required: true,

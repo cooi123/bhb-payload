@@ -157,7 +157,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'fullImpact' | 'lowImpact';
     richText?: {
       root: {
         type: string;
@@ -197,6 +197,8 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    height?: ('1/2' | '1/3' | '1/4') | null;
+    textAlignment?: ('left' | 'center' | 'right') | null;
     media?: (number | null) | Media;
   };
   layout: (
@@ -1348,6 +1350,8 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        height?: T;
+        textAlignment?: T;
         media?: T;
       };
   layout?:

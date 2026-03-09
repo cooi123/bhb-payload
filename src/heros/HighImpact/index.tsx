@@ -29,8 +29,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
                 return (
                   <Button
                     key={i}
-                    variant="default"
-                    className="rounded-full px-6 py-2 min-w-[8rem] text-center border-2 font-bold hover:shadow-lg"
+                    variant="outline"
+                    className="rounded-lg px-4 py-1.5 min-w-[7rem] text-center border border-white/80 bg-transparent text-white font-medium hover:bg-white/10 hover:text-white"
                   >
                     <Link href={link.url || ''} className="block w-full">
                       {link.label}
