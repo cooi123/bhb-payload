@@ -17,7 +17,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
 
   return (
     <div
-      className="relative -mt-[10rem] flex items-end pb-20 pt-60 md:pt-80 justify-center text-primary"
+      className="relative -mt-[10rem] flex items-end justify-center pb-16 pt-40 text-primary sm:pt-52 md:pb-20 md:pt-80"
       data-theme="dark"
     >
       <div className="container mb-8 z-10 relative flex items-center justify-center ">
@@ -30,7 +30,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
                   <Button
                     key={i}
                     variant="outline"
-                    className="rounded-lg px-4 py-1.5 min-w-[7rem] text-center border border-white/80 bg-transparent text-white font-medium hover:bg-white/10 hover:text-white"
+                    className="rounded-xl px-4 py-1.5 min-w-[7rem] text-center text-lg border-2 border-white/80 bg-transparent text-white font-bold hover:bg-white/10 hover:text-white"
                   >
                     <Link href={link.url || ''} className="block w-full">
                       {link.label}
@@ -42,10 +42,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           )}
         </div>
       </div>
-      <div className="min-h-[80vh] select-none items-center justify-center pt-20 md:pt-32">
+      <div className="min-h-[55vh] select-none items-center justify-center pt-12 sm:min-h-[65vh] sm:pt-16 md:min-h-[80vh] md:pt-32">
         {media && typeof media === 'object' && (
           <>
-            <Media fill imgClassName="-z-10 object-cover bg-black" priority resource={media} />
+            <Media fill imgClassName="-z-10 object-cover object-center bg-black" priority resource={media} />
             <div className="absolute inset-0 -z-[5] bg-black/50" />
           </>
         )}
