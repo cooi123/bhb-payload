@@ -50,7 +50,7 @@ export const ProductMediaBlock: Block = {
           name: 'media',
           type: 'upload',
           relationTo: 'media',
-          required: true,
+          required: false,
         },
         {
           name: 'title',
