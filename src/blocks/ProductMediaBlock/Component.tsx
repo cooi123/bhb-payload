@@ -71,7 +71,7 @@ export const ProductMediaBlock: React.FC<Props> = (props) => {
     >
       <div className={cn('grid grid-cols-1 gap-6 sm:grid-cols-2 py-16', columnClass)}>
         {products.map((item, index) => {
-          if (!item?.media) return null
+          if (!item?.media && !item?.comingSoon) return null
 
           // Calculate href from link
           const href =
@@ -94,62 +94,54 @@ export const ProductMediaBlock: React.FC<Props> = (props) => {
             <div key={index}>
               <div
                 className={cn(
-                  'relative overflow-hidden group',
+                  'relative overflow-hidden group w-full',
                   hasLink && 'cursor-pointer',
                   !isComingSoon && 'hover:scale-105 transition-all duration-300',
-                  isComingSoon && 'opacity-75',
                 )}
                 style={aspectRatioValue ? { aspectRatio: aspectRatioValue } : undefined}
               >
-                <Media
-                  resource={item.media}
-                  fill
-                  pictureClassName="block h-full w-full"
-                  imgClassName={cn(
-                    'object-cover transition-all duration-300',
-                    isComingSoon ? 'grayscale' : 'group-hover:scale-110',
-                    imgClassName,
-                  )}
-                  size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                />
-                {/* Gray overlay for coming soon, black overlay on hover for available */}
+                {/* Background: gray for coming soon, image for available */}
+                {isComingSoon ? (
+                  <div className="absolute inset-0 bg-gray-300" />
+                ) : (
+                  <Media
+                    resource={item.media}
+                    fill
+                    pictureClassName="block h-full w-full"
+                    imgClassName={cn(
+                      'object-cover transition-all duration-300 group-hover:scale-110',
+                      imgClassName,
+                    )}
+                    size="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  />
+                )}
+                {/* Overlay */}
                 <div
                   className={cn(
                     'absolute inset-0 transition-all duration-300 pointer-events-none',
                     isComingSoon
-                      ? 'bg-gray-900/50'
-                      : 'bg-black/20 group-hover:bg-black/40',
+                      ? 'bg-black/30'
+                      : 'bg-black/20 group-hover:bg-black/50',
                   )}
                 />
-                {/* Product title overlay */}
+                {/* Title + coming soon label centered on image */}
                 {item.title && (
-                  <div
-                    className={cn(
-                      'absolute inset-0 flex items-center justify-center transition-all duration-300 z-10 pointer-events-none',
-                      isComingSoon ? 'bg-black/30' : 'bg-black/0 group-hover:bg-black/40',
+                  <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none gap-2 px-4">
+                    <span className="font-semibold text-white text-xl text-center drop-shadow">
+                      {item.title}
+                    </span>
+                    {isComingSoon && (
+                      <span className="text-white/90 text-xs font-semibold uppercase tracking-widest">
+                        Coming Soon
+                      </span>
                     )}
-                  >
-                    <div className="flex flex-col items-center gap-2">
-                      <span className="font-medium text-white text-2xl">{item.title}</span>
-                      {isComingSoon ? (
-                        <span className="text-white/90 text-sm font-semibold uppercase tracking-wider">
-                          Coming Soon
-                        </span>
-                      ) : (
-                        hasLink && (
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm">
-                            Learn more →
-                          </span>
-                        )
-                      )}
-                    </div>
                   </div>
                 )}
                 {/* Clickable link overlay - only if not coming soon */}
                 {hasLink && href && (
                   <Link
                     href={href}
-                    className="absolute inset-0 z-10"
+                    className="absolute inset-0 z-20"
                     {...newTabProps}
                     aria-label={item.title || 'View product'}
                   />
