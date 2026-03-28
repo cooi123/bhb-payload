@@ -48,15 +48,21 @@ const aspectRatioClasses: Record<
   NonNullable<MediaCarouselBlockProps['slideAspectRatio']>,
   string
 > = {
-  '16:9': 'aspect-[16/9]',
-  '4:3': 'aspect-[4/3]',
-  '1:1': 'aspect-square',
+  '16:9': 'md:aspect-[16/9]',
+  '4:3': 'md:aspect-[4/3]',
+  '1:1': 'md:aspect-square',
 }
 
 const slideWidthClasses: Record<NonNullable<MediaCarouselBlockProps['slideSize']>, string> = {
   small: 'basis-full md:basis-1/3 lg:basis-1/4',
   medium: 'basis-full md:basis-2/3 lg:basis-1/3',
   large: 'basis-full md:basis-5/6 lg:basis-1/2',
+}
+
+const mobileSlideHeightClasses: Record<NonNullable<MediaCarouselBlockProps['slideSize']>, string> = {
+  small: 'h-[14rem] sm:h-[16rem] md:h-auto',
+  medium: 'h-[16rem] sm:h-[20rem] md:h-auto',
+  large: 'h-[18rem] sm:h-[24rem] md:h-auto',
 }
 
 const backgroundBackgroundClasses: Record<'primary' | 'secondary', string> = {
@@ -81,6 +87,8 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
 
   const aspectClass = aspectRatioClasses[slideAspectRatio] ?? aspectRatioClasses['16:9']
   const slideWidthClass = slideWidthClasses[slideSize] ?? slideWidthClasses.medium
+  const mobileSlideHeightClass =
+    mobileSlideHeightClasses[slideSize] ?? mobileSlideHeightClasses.medium
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -164,6 +172,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                           target="_self"
                           className={cn(
                             'relative block w-full overflow-hidden rounded-2xl border border-border bg-background',
+                            mobileSlideHeightClass,
                             aspectClass,
                           )}
                         >
@@ -176,9 +185,11 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                           </div>
                           {slide.media && (
                             <Media
+                              fill
                               resource={slide.media}
                               className="h-full w-full"
-                              imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                              pictureClassName="block h-full w-full"
+                              imgClassName="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
                             />
                           )}
                         </a>
@@ -186,14 +197,17 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
                         <div
                           className={cn(
                             'relative block w-full overflow-hidden bg-background',
+                            mobileSlideHeightClass,
                             aspectClass,
                           )}
                         >
                           {slide.media && (
                             <Media
+                              fill
                               resource={slide.media}
                               className="h-full w-full"
-                              imgClassName="h-full w-full object-cover"
+                              pictureClassName="block h-full w-full"
+                              imgClassName="h-full w-full object-cover object-center"
                             />
                           )}
                         </div>

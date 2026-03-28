@@ -34,9 +34,16 @@ const heightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, str
 }
 
 const mediaHeightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
-  small: 'h-[25rem]',
-  medium: 'h-[30rem]',
-  large: 'h-[40rem]',
+  small: 'h-[14rem] sm:h-[16rem] lg:h-full',
+  medium: 'h-[16rem] sm:h-[20rem] lg:h-full',
+  large: 'h-[18rem] sm:h-[24rem] lg:h-full',
+  full: 'h-auto',
+}
+
+const mediaFillHeightClasses: Record<NonNullable<SectionBlockProps['sectionHeight']>, string> = {
+  small: 'h-[14rem] sm:h-[16rem] md:h-full',
+  medium: 'h-[16rem] sm:h-[20rem] md:h-full',
+  large: 'h-[18rem] sm:h-[24rem] md:h-full',
   full: 'h-auto',
 }
 
@@ -55,8 +62,6 @@ export const SectionBlock: React.FC<Props> = (props) => {
     sectionHeight = 'medium',
   } = props
 
-  const mediaHeightClass = mediaHeightClasses[sectionHeight]
-
   const hasButton =
     buttonLink &&
     ((buttonLink.type === 'custom' && buttonLink.url) ||
@@ -64,19 +69,24 @@ export const SectionBlock: React.FC<Props> = (props) => {
 
   const renderMedia = (variant: 'default' | 'fill' = 'default') => {
     const isFullHeight = sectionHeight === 'full'
+    const mediaHeightClass =
+      variant === 'fill' ? mediaFillHeightClasses[sectionHeight] : mediaHeightClasses[sectionHeight]
+
     return media ? (
       <div
         className={cn(
           'relative w-full overflow-hidden',
-          variant === 'fill' ? (isFullHeight ? 'h-auto' : mediaHeightClass) : mediaHeightClass,
+          mediaHeightClass,
         )}
       >
         <Media
+          fill={!isFullHeight}
           className={cn('w-full', isFullHeight ? 'h-auto' : 'h-full')}
+          pictureClassName={cn('block w-full', isFullHeight ? 'h-auto' : 'h-full')}
           imgClassName={cn(
             'w-full transition-transform duration-300',
             'hover:scale-[1.02]',
-            isFullHeight ? 'h-auto object-contain' : 'h-full object-cover',
+            isFullHeight ? 'h-auto object-contain' : 'h-full object-cover object-center',
           )}
           resource={media}
         />
@@ -87,7 +97,12 @@ export const SectionBlock: React.FC<Props> = (props) => {
   const layout = mediaLayouts[mediaLayout]
 
   const renderContent = (align: 'left' | 'right' = 'left') => (
-    <div className={cn('flex flex-col gap-4', align === 'right' && 'items-end text-right')}>
+    <div
+      className={cn(
+        'flex h-full flex-col gap-4',
+        align === 'right' && 'items-end text-right',
+      )}
+    >
       {heading && (
         <h2
           className={cn(
@@ -98,18 +113,32 @@ export const SectionBlock: React.FC<Props> = (props) => {
           {heading}
         </h2>
       )}
-      {content && <RichText data={content} enableGutter={false} align={align} className='text-3xl font-extralight' />}
-      {hasButton && (
-        <CMSLink
-          {...buttonLink}
-          className={cn(
-            'w-fit',
-            align === 'left' ? 'self-start' : 'self-end',
-          )}
-          appearance={buttonLink?.appearance ?? 'default'}
-          size="lg"
-        />
-      )}
+      <div
+        className={cn(
+          'flex flex-1 flex-col justify-end gap-4',
+          align === 'right' && 'items-end',
+        )}
+      >
+        {content && (
+          <RichText
+            data={content}
+            enableGutter={false}
+            align={align}
+            className="text-lg font-extralight leading-relaxed sm:text-xl lg:text-2xl xl:text-3xl"
+          />
+        )}
+        {hasButton && (
+          <CMSLink
+            {...buttonLink}
+            className={cn(
+              'h-auto w-fit rounded-xl border border-primary bg-transparent px-10 py-1.5 text-primary font-medium hover:bg-primary/10 hover:text-primary md:px-12',
+              align === 'left' ? 'self-start' : 'self-end',
+            )}
+            appearance={buttonLink?.appearance ?? 'default'}
+            size="lg"
+          />
+        )}
+      </div>
     </div>
   )
 
@@ -138,7 +167,7 @@ export const SectionBlock: React.FC<Props> = (props) => {
       <div
         className={cn(
           {
-            'p-8 md:p-12': layout !== 'imageFill',
+            'md:p-12': layout !== 'imageFill',
             relative: layout === 'imageFill',
           },
           backgroundClasses,
@@ -154,15 +183,15 @@ export const SectionBlock: React.FC<Props> = (props) => {
           >
             {contentPosition === 'left' ? (
               <>
-                <div className="min-w-0 order-2 md:order-1 px-6 py-8 md:px-10">
+                <div className="min-w-0 order-1 px-6 py-8 md:order-1 md:h-full md:px-10">
                   {renderContent('left')}
                 </div>
-                <div className="order-1 md:order-2">{renderMedia('fill')}</div>
+                <div className="order-2 md:order-2">{renderMedia('fill')}</div>
               </>
             ) : (
               <>
-                <div className="order-1 md:order-1">{renderMedia('fill')}</div>
-                <div className="min-w-0 order-2 md:order-2 px-6 py-8 md:px-10">
+                <div className="order-2 md:order-1">{renderMedia('fill')}</div>
+                <div className="min-w-0 order-1 px-6 py-8 md:order-2 md:h-full md:px-10">
                   {renderContent('right')}
                 </div>
               </>
@@ -175,9 +204,11 @@ export const SectionBlock: React.FC<Props> = (props) => {
               sectionHeight === 'full' ? 'h-auto' : heightClasses[sectionHeight],
             )}
           >
-            {layout === 'imageLeft' && renderMedia()}
-            <div className="min-w-0">{layout === 'imageLeft' ? renderContent('right') : renderContent('left')}</div>
-            {layout === 'imageRight' && renderMedia()}
+            {layout === 'imageLeft' && <div className="order-2 lg:order-1">{renderMedia()}</div>}
+            <div className="order-1 min-w-0 h-full px-6 py-8 lg:order-2 lg:px-0 lg:py-0">
+              {layout === 'imageLeft' ? renderContent('right') : renderContent('left')}
+            </div>
+            {layout === 'imageRight' && <div className="order-2 lg:order-3">{renderMedia()}</div>}
           </div>
         )}
       </div>
