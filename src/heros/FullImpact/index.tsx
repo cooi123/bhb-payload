@@ -51,10 +51,28 @@ export const FullImpactHero: React.FC<Page['hero']> = ({
 
   return (
     <div
-      className={`relative -mt-24 flex ${heroHeightClass} items-end overflow-hidden text-white md:-mt-32`}
+      className={`relative isolate -mt-24 flex ${heroHeightClass} items-end overflow-hidden text-white md:-mt-32`}
       data-theme="dark"
     >
-      <div className={`container relative z-10 flex ${heroAlignment.container} pb-10 md:pb-14 lg:pb-16`}>
+      {media && typeof media === 'object' && (
+        <>
+          <Media
+            className="absolute inset-0 z-0"
+            fill
+            imgClassName="object-cover"
+            priority
+            resource={media}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/55 via-black/15 to-black/5"
+          />
+        </>
+      )}
+
+      <div
+        className={`container relative z-10 flex ${heroAlignment.container} pb-10 md:pb-14 lg:pb-16`}
+      >
         <div className={`max-w-3xl ${heroAlignment.content}`}>
           {richText && (
             <RichText
@@ -82,13 +100,6 @@ export const FullImpactHero: React.FC<Page['hero']> = ({
           )}
         </div>
       </div>
-
-      {media && typeof media === 'object' && (
-        <>
-          <Media fill imgClassName="-z-20 object-cover" priority resource={media} />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
-        </>
-      )}
     </div>
   )
 }
