@@ -23,7 +23,7 @@ export const Logo = (props: Props) => {
         transparent? 'text-white' : 'text-primary',
       )}
     >
-      BELLFORD&nbsp;HOME&nbsp;BUILDER
+      BELLFORD&nbsp;HOMES
     </div>
   )
 }
