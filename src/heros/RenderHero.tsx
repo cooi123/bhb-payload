@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Home, Page } from '@/payload-types'
 
 import { HighImpactHero } from '@/heros/HighImpact'
 import { FullImpactHero } from '@/heros/FullImpact'
@@ -14,7 +14,7 @@ const heroes = {
   mediumImpact: MediumImpactHero,
 }
 
-export const RenderHero: React.FC<Page['hero']> = (props) => {
+export const RenderHero: React.FC<Page['hero'] | Home['hero']> = (props) => {
   const { type } = props || {}
 
   if (!type || type === 'none') return null
