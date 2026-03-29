@@ -587,9 +587,13 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  layout?: ('single' | 'grid' | 'flex') | null;
+  layout?: ('single' | 'grid' | 'flex' | 'masonry') | null;
   /**
-   * Use 3 columns for a classic gallery view.
+   * Vertical flows images top-to-bottom in columns. Horizontal fills rows with images at equal height.
+   */
+  masonryOrientation?: ('vertical' | 'horizontal') | null;
+  /**
+   * Number of columns for grid or masonry layout.
    */
   columns?: ('2' | '3' | '4') | null;
   galleryAspectRatio?: ('1:1' | '4:3' | '3:2' | '16:9') | null;
@@ -600,6 +604,10 @@ export interface MediaBlock {
   gallery?:
     | {
         media: number | Media;
+        /**
+         * Override the natural crop for this image. Only affects masonry and variable row layouts.
+         */
+        orientation?: ('auto' | 'horizontal' | 'vertical') | null;
         caption?: string | null;
         id?: string | null;
       }[]
@@ -1490,6 +1498,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   layout?: T;
+  masonryOrientation?: T;
   columns?: T;
   galleryAspectRatio?: T;
   media?: T;
@@ -1497,6 +1506,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
     | T
     | {
         media?: T;
+        orientation?: T;
         caption?: T;
         id?: T;
       };
