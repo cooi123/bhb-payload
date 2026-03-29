@@ -95,6 +95,15 @@ export const MediaCarouselBlock: Block = {
         },
       },
     }),
+    link({
+      overrides: {
+        name: 'buttonLink2',
+        label: 'Bottom Button Link 2',
+        admin: {
+          description: 'Optional: display a second button beneath the carousel.',
+        },
+      },
+    }),
     {
       name: 'slides',
       label: 'Slides',

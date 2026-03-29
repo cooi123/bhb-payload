@@ -659,6 +659,28 @@ export interface MediaCarouselBlock {
      */
     appearance?: ('default' | 'outline') | null;
   };
+  /**
+   * Optional: display a second button beneath the carousel.
+   */
+  buttonLink2: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
   slides: {
     media: number | Media;
     caption?: string | null;
@@ -1028,7 +1050,7 @@ export interface ProductMediaBlock {
    */
   products?:
     | {
-        media: number | Media;
+        media?: (number | null) | Media;
         title: string;
         comingSoon?: boolean | null;
         link?: {
@@ -1494,6 +1516,16 @@ export interface MediaCarouselBlockSelect<T extends boolean = true> {
   slideSize?: T;
   loopSlides?: T;
   buttonLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  buttonLink2?:
     | T
     | {
         type?: T;

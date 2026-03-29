@@ -37,6 +37,7 @@ type MediaCarouselBlockProps = {
   slideSize?: 'small' | 'medium' | 'large'
   loopSlides?: boolean
   buttonLink?: any
+  buttonLink2?: any
 }
 
 type Props = MediaCarouselBlockProps & {
@@ -79,6 +80,7 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     slideSize = 'medium',
     loopSlides = false,
     buttonLink,
+    buttonLink2,
     backgroundColor = 'primary',
     customBackgroundColor,
     disableInnerContainer,
@@ -96,6 +98,10 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
     buttonLink &&
     ((buttonLink.type === 'custom' && buttonLink.url) ||
       (buttonLink.type === 'reference' && buttonLink.reference))
+  const hasButtonLink2 =
+    buttonLink2 &&
+    ((buttonLink2.type === 'custom' && buttonLink2.url) ||
+      (buttonLink2.type === 'reference' && buttonLink2.reference))
 
   useEffect(() => {
     if (!api) {
@@ -248,14 +254,24 @@ export const MediaCarouselBlock: React.FC<Props> = (props) => {
             )}
           </Carousel>
         </div>
-        {hasButtonLink && (
-          <div className="flex justify-center pt-6">
-            <CMSLink
-              {...buttonLink}
-              appearance={buttonLink?.appearance ?? 'default'}
-              size="lg"
-              className={cn('min-w-[12rem] justify-center', buttonLink?.className)}
-            ></CMSLink>
+        {(hasButtonLink || hasButtonLink2) && (
+          <div className="flex flex-wrap justify-center gap-4 pt-6">
+            {hasButtonLink && (
+              <CMSLink
+                {...buttonLink}
+                appearance={buttonLink?.appearance ?? 'default'}
+                size="lg"
+                className={cn('min-w-[12rem] justify-center', buttonLink?.className)}
+              />
+            )}
+            {hasButtonLink2 && (
+              <CMSLink
+                {...buttonLink2}
+                appearance={buttonLink2?.appearance ?? 'default'}
+                size="lg"
+                className={cn('min-w-[12rem] justify-center', buttonLink2?.className)}
+              />
+            )}
           </div>
         )}
       </div>
