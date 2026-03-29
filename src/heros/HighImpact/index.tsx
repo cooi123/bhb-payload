@@ -5,8 +5,7 @@ import React, { useEffect } from 'react'
 import type { Page } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { CMSLink } from '@/components/Link'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   const { setHeaderTheme } = useHeaderTheme()
@@ -14,6 +13,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   useEffect(() => {
     setHeaderTheme('dark')
   })
+  console.log(links)
 
   return (
     <div
@@ -27,15 +27,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
             <ul className="flex md:justify-center gap-4">
               {links.map(({ link }, i) => {
                 return (
-                  <Button
+                  <CMSLink
                     key={i}
-                    variant="outline"
-                    className="rounded-xl px-4 py-1.5 min-w-[7rem] text-center text-lg border-2 border-white/80 bg-transparent text-white font-bold hover:bg-white/10 hover:text-white"
-                  >
-                    <Link href={link.url || ''} className="block w-full">
-                      {link.label}
-                    </Link>
-                  </Button>
+                    appearance="outline"
+                    className="rounded-xl px-4 py-1.5 min-w-[7rem] text-center text-lg border-2 border-white/80 bg-transparent text-white font-medium hover:bg-white/10 hover:text-white"
+                    {...link}
+                  />
                 )
               })}
             </ul>
