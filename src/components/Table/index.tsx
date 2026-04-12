@@ -61,7 +61,7 @@ const formatArea = (area: PropertyTableProps['area']) => {
   return (
     <span className="inline-flex items-baseline gap-1">
       <span>{area}</span>
-      <sup className="text-[10px] leading-none">m²</sup>
+      <sup className="text-[10px] leading-none">sq</sup>
     </span>
   )
 }
@@ -74,7 +74,9 @@ export const PropertyTable: React.FC<PropertyTableProps> = ({
   rows,
   specs,
 }) => {
-  const hasSpecs = !!specs && ['baths', 'beds', 'cars'].some((key) => specs[key as keyof PropertySpecs] !== undefined)
+  const hasSpecs =
+    !!specs &&
+    ['baths', 'beds', 'cars'].some((key) => specs[key as keyof PropertySpecs] !== undefined)
 
   const derivedRows =
     rows ??
@@ -95,7 +97,9 @@ export const PropertyTable: React.FC<PropertyTableProps> = ({
       <tbody className="divide-y divide-border">
         {derivedRows.map(({ label, value }) => (
           <tr key={label}>
-            <th className="whitespace-nowrap px-3 py-3 text-left font-semibold text-foreground">{label}</th>
+            <th className="whitespace-nowrap px-3 py-3 text-left font-semibold text-foreground">
+              {label}
+            </th>
             <td className="px-3 py-3">
               <div className="flex items-center gap-2 text-foreground">{value}</div>
             </td>
@@ -107,4 +111,3 @@ export const PropertyTable: React.FC<PropertyTableProps> = ({
 }
 
 export default PropertyTable
-
