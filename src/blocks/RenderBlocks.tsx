@@ -12,6 +12,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/Component'
 import { ProductMediaBlock } from '@/blocks/ProductMediaBlock/Component'
 import { SectionBlock } from '@/blocks/Section/Component'
+import { TextBoxBlock } from '@/blocks/TextBox/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -24,6 +25,7 @@ const blockComponents = {
   mediaCarousel: MediaCarouselBlock,
   productMediaBlock: ProductMediaBlock,
   section: SectionBlock,
+  textBox: TextBoxBlock,
 }
 
 export const RenderBlocks: React.FC<{

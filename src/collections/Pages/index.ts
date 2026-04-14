@@ -12,6 +12,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MediaCarouselBlock } from '@/blocks/MediaCarousel/config'
 import { ProductMediaBlock } from '../../blocks/ProductMediaBlock/config'
 import { SectionBlock } from '@/blocks/Section/config'
+import { TextBoxBlock } from '@/blocks/TextBox/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -85,6 +86,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Archive,
                 FormBlock,
                 SectionBlock,
+                TextBoxBlock,
                 ContactUs,
                 ProcessTimelineBlock,
                 ProductMediaBlock,

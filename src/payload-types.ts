@@ -211,6 +211,7 @@ export interface Page {
     | ArchiveBlock
     | FormBlock
     | SectionBlock
+    | TextBoxBlock
     | ContactUsBlock
     | ProcessTimelineBlock
     | ProductMediaBlock
@@ -1000,6 +1001,32 @@ export interface SectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock".
+ */
+export interface TextBoxBlock {
+  heading?: string | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContactUsBlock".
  */
 export interface ContactUsBlock {
@@ -1474,6 +1501,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         section?: T | SectionBlockSelect<T>;
+        textBox?: T | TextBoxBlockSelect<T>;
         contactUs?: T | ContactUsBlockSelect<T>;
         processTimeline?: T | ProcessTimelineBlockSelect<T>;
         productMediaBlock?: T | ProductMediaBlockSelect<T>;
@@ -1685,6 +1713,17 @@ export interface SectionBlockSelect<T extends boolean = true> {
   mediaLayout?: T;
   contentPosition?: T;
   sectionHeight?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock_select".
+ */
+export interface TextBoxBlockSelect<T extends boolean = true> {
+  heading?: T;
+  textAlign?: T;
+  content?: T;
   id?: T;
   blockName?: T;
 }
