@@ -38,9 +38,13 @@ export const SectionBlock: Block = {
       }),
     },
     link({
+      required: false,
       overrides: {
         name: 'buttonLink',
         label: 'Button Link',
+        admin: {
+          description: 'Optional: leave empty to hide the button.',
+        },
       },
     }),
     {

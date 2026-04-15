@@ -87,6 +87,7 @@ export const MediaCarouselBlock: Block = {
       defaultValue: true,
     },
     link({
+      required: false,
       overrides: {
         name: 'buttonLink',
         label: 'Bottom Button Link',
@@ -96,6 +97,7 @@ export const MediaCarouselBlock: Block = {
       },
     }),
     link({
+      required: false,
       overrides: {
         name: 'buttonLink2',
         label: 'Bottom Button Link 2',

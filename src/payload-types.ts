@@ -651,7 +651,7 @@ export interface MediaCarouselBlock {
   /**
    * Optional: display a button beneath the carousel.
    */
-  buttonLink: {
+  buttonLink?: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -664,7 +664,7 @@ export interface MediaCarouselBlock {
           value: number | Post;
         } | null);
     url?: string | null;
-    label: string;
+    label?: string | null;
     /**
      * Choose how the link should be rendered.
      */
@@ -673,7 +673,7 @@ export interface MediaCarouselBlock {
   /**
    * Optional: display a second button beneath the carousel.
    */
-  buttonLink2: {
+  buttonLink2?: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -686,7 +686,7 @@ export interface MediaCarouselBlock {
           value: number | Post;
         } | null);
     url?: string | null;
-    label: string;
+    label?: string | null;
     /**
      * Choose how the link should be rendered.
      */
@@ -961,7 +961,10 @@ export interface SectionBlock {
     };
     [k: string]: unknown;
   };
-  buttonLink: {
+  /**
+   * Optional: leave empty to hide the button.
+   */
+  buttonLink?: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -974,7 +977,7 @@ export interface SectionBlock {
           value: number | Post;
         } | null);
     url?: string | null;
-    label: string;
+    label?: string | null;
     /**
      * Choose how the link should be rendered.
      */
