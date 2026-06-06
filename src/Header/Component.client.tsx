@@ -34,7 +34,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header
       className={cn(
-        'relative z-20 w-full sticky top-0 text-primary transition-all duration-300 bg-layout',
+        'z-20 w-full sticky -top-px text-primary transition-all duration-300 bg-layout',
         {
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
