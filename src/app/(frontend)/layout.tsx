@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Montserrat } from 'next/font/google'
+import { Playfair_Display, Montserrat, Lato, Open_Sans, Merriweather } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -23,11 +23,38 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
 })
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-lato',
+})
+
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  variable: '--font-open-sans',
+})
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-merriweather',
+})
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(playfair.variable, montserrat.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(
+        playfair.variable,
+        montserrat.variable,
+        lato.variable,
+        openSans.variable,
+        merriweather.variable,
+      )}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

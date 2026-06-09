@@ -98,6 +98,9 @@ const config = {
         sans: ['var(--font-geist-sans)'],
         montserrat: ['var(--font-montserrat)', 'sans-serif'],
         playfair: ['var(--font-playfair)', 'serif'],
+        lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
+        'open-sans': ['var(--font-open-sans)', '"Open Sans"', 'sans-serif'],
+        merriweather: ['var(--font-merriweather)', 'Merriweather', 'serif'],
       },
       keyframes: {
         'accordion-down': {
@@ -113,24 +116,61 @@ const config = {
         DEFAULT: {
           css: [
             {
-              '--tw-prose-body': 'var(--text)',
-              '--tw-prose-headings': 'var(--text)',
+              '--tw-prose-body': 'hsl(var(--foreground))',
+              '--tw-prose-headings': 'hsl(var(--primary))',
+              '--tw-prose-links': 'hsl(var(--primary))',
+              '--tw-prose-code': 'hsl(var(--foreground))',
+              '--tw-prose-bold': 'hsl(var(--foreground))',
+              // H1
               h1: {
-                fontWeight: 'normal',
-                marginBottom: '0.25em',
-              },
-            },
-          ],
-        },
-        base: {
-          css: [
-            {
-              h1: {
+                fontFamily: 'var(--font-playfair), serif',
                 fontSize: '2.5rem',
+                lineHeight: '1.2',
+                fontWeight: '400',
+                marginTop: '0',
+                marginBottom: '0.5em',
               },
+              // H2
               h2: {
+                fontFamily: 'var(--font-playfair), serif',
+                fontSize: '2rem',
+                lineHeight: '1.25',
+                fontWeight: '400',
+                marginTop: '1.25em',
+                marginBottom: '0.5em',
+              },
+              // H3
+              h3: {
+                fontFamily: 'var(--font-playfair), serif',
+                fontSize: '1.5rem',
+                lineHeight: '1.3',
+                fontWeight: '400',
+                marginTop: '1em',
+                marginBottom: '0.4em',
+              },
+              // H4
+              h4: {
+                fontFamily: 'var(--font-playfair), serif',
                 fontSize: '1.25rem',
-                fontWeight: 600,
+                lineHeight: '1.35',
+                fontWeight: '400',
+                marginTop: '0.75em',
+                marginBottom: '0.35em',
+              },
+              // H5
+              h5: {
+                fontFamily: 'var(--font-montserrat), sans-serif',
+                fontSize: '1.125rem',
+                lineHeight: '1.4',
+                fontWeight: '300',
+                marginTop: '0.5em',
+                marginBottom: '0.3em',
+              },
+              // paragraphs
+              p: {
+                marginTop: '0.75em',
+                marginBottom: '0.75em',
+                lineHeight: '1.625',
               },
             },
           ],
@@ -138,12 +178,11 @@ const config = {
         md: {
           css: [
             {
-              h1: {
-                fontSize: '3.5rem',
-              },
-              h2: {
-                fontSize: '1.5rem',
-              },
+              h1: { fontSize: '3.5rem' },
+              h2: { fontSize: '2.5rem' },
+              h3: { fontSize: '2rem' },
+              h4: { fontSize: '1.5rem' },
+              h5: { fontSize: '1.25rem' },
             },
           ],
         },
