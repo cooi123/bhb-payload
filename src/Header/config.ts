@@ -10,6 +10,14 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'backgroundColor',
+      type: 'text',
+      label: 'Header Background Color',
+      admin: {
+        description: 'Any CSS color value (e.g. #ffffff, rgb(0,0,0), hsl(0 0% 70%)). Leave empty for default.',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

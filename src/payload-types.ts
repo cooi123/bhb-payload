@@ -2294,6 +2294,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Any CSS color value (e.g. #ffffff, rgb(0,0,0), hsl(0 0% 70%)). Leave empty for default.
+   */
+  backgroundColor?: string | null;
   navItems?:
     | {
         link: {
@@ -2351,6 +2355,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  backgroundColor?: T;
   navItems?:
     | T
     | {

@@ -5,7 +5,7 @@ import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import './index.scss'
@@ -37,6 +37,12 @@ export const AdminBar: React.FC<{
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
+  const adminBarRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const height = show && adminBarRef.current ? adminBarRef.current.offsetHeight : 0
+    document.documentElement.style.setProperty('--admin-bar-height', `${height}px`)
+  }, [show])
   const collection = (
     collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
   ) as keyof typeof collectionLabels
@@ -48,7 +54,8 @@ export const AdminBar: React.FC<{
 
   return (
     <div
-      className={cn(baseClass, 'py-2 bg-black text-white', {
+      ref={adminBarRef}
+      className={cn(baseClass, 'sticky top-0 z-30 py-2 bg-black text-white', {
         block: show,
         hidden: !show,
       })}

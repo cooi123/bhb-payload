@@ -21,6 +21,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const { show, atTop } = useNavbarScroll()
+  const isTransparent = atTop && pathname === '/'
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -31,16 +32,22 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
+
+  const customBg = data.backgroundColor
+  const bgStyle = !isTransparent && customBg ? { backgroundColor: customBg } : {}
+
   return (
     <header
       className={cn(
-        'z-20 w-full sticky -top-px text-primary transition-all duration-300 bg-layout',
+        'z-20 w-full sticky text-primary transition-all duration-300',
+        !customBg && 'bg-layout',
         {
           '-translate-y-full opacity-0': !show,
           'translate-y-0 opacity-100': show,
-          'bg-transparent text-white': atTop && pathname == '/',
+          'bg-transparent': isTransparent,
         },
       )}
+      style={{ top: 'calc(var(--admin-bar-height, 0px) - 1px)', ...bgStyle }}
     >
       <div className="container flex items-center justify-between py-2 md:py-4 lg:py-6">
         <Link href="/">
